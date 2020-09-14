@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebOnlineAuction", "WebOnlineAuction\WebOnlineAuction.csproj", "{1FFD6817-FA13-4532-BE4E-F12C8A2E2737}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebDAL", "WebDML\WebDAL.csproj", "{9C2D2AE3-6418-402A-8B36-D644CD80DC90}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebBLL", "WebBML\WebBLL.csproj", "{92AD3860-3347-4BD0-AD3F-14986C3FEA54}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1FFD6817-FA13-4532-BE4E-F12C8A2E2737}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FFD6817-FA13-4532-BE4E-F12C8A2E2737}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FFD6817-FA13-4532-BE4E-F12C8A2E2737}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FFD6817-FA13-4532-BE4E-F12C8A2E2737}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C2D2AE3-6418-402A-8B36-D644CD80DC90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C2D2AE3-6418-402A-8B36-D644CD80DC90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C2D2AE3-6418-402A-8B36-D644CD80DC90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C2D2AE3-6418-402A-8B36-D644CD80DC90}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92AD3860-3347-4BD0-AD3F-14986C3FEA54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92AD3860-3347-4BD0-AD3F-14986C3FEA54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92AD3860-3347-4BD0-AD3F-14986C3FEA54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92AD3860-3347-4BD0-AD3F-14986C3FEA54}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5E676508-CA3E-4A62-BCD4-CE4D275D142D}
+	EndGlobalSection
+EndGlobal
