@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WebDML.DataModels
+namespace WebDAL.DataModels
 {
     public class Orders
     {
@@ -14,6 +14,7 @@ namespace WebDML.DataModels
         public string OrderId { get; set; }
         public string UserId { get; set; }
         public string ItemId { get; set; }
+        public double Price { get; set; }
         public bool Status { get; set; }
         public DateTime Created { get; set; }
 

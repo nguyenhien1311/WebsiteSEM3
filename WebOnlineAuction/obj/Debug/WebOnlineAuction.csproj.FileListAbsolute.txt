@@ -52,6 +52,7 @@ C:\Users\admin\Source\Repos\ProjectSEM3\WebOnlineAuction\bin\roslyn\VBCSCompiler
 C:\Users\admin\Source\Repos\ProjectSEM3\WebOnlineAuction\bin\roslyn\VBCSCompiler.exe.config
 C:\Users\admin\Source\Repos\ProjectSEM3\WebOnlineAuction\bin\Antlr3.Runtime.dll
 C:\Users\admin\Source\Repos\ProjectSEM3\WebOnlineAuction\bin\Autofac.dll
+C:\Users\admin\Source\Repos\ProjectSEM3\WebOnlineAuction\bin\AutoMapper.dll
 C:\Users\admin\Source\Repos\ProjectSEM3\WebOnlineAuction\bin\CKSource.CKFinder.Connector.Config.dll
 C:\Users\admin\Source\Repos\ProjectSEM3\WebOnlineAuction\bin\CKSource.CKFinder.Connector.Core.dll
 C:\Users\admin\Source\Repos\ProjectSEM3\WebOnlineAuction\bin\CKSource.CKFinder.Connector.Host.Owin.dll
@@ -60,11 +61,13 @@ C:\Users\admin\Source\Repos\ProjectSEM3\WebOnlineAuction\bin\CKSource.FileSystem
 C:\Users\admin\Source\Repos\ProjectSEM3\WebOnlineAuction\bin\EntityFramework.dll
 C:\Users\admin\Source\Repos\ProjectSEM3\WebOnlineAuction\bin\EntityFramework.SqlServer.dll
 C:\Users\admin\Source\Repos\ProjectSEM3\WebOnlineAuction\bin\ImageProcessor.dll
+C:\Users\admin\Source\Repos\ProjectSEM3\WebOnlineAuction\bin\log4net.dll
 C:\Users\admin\Source\Repos\ProjectSEM3\WebOnlineAuction\bin\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\admin\Source\Repos\ProjectSEM3\WebOnlineAuction\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 C:\Users\admin\Source\Repos\ProjectSEM3\WebOnlineAuction\bin\Microsoft.Owin.dll
 C:\Users\admin\Source\Repos\ProjectSEM3\WebOnlineAuction\bin\Microsoft.Owin.Host.SystemWeb.dll
 C:\Users\admin\Source\Repos\ProjectSEM3\WebOnlineAuction\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\admin\Source\Repos\ProjectSEM3\WebOnlineAuction\bin\Migrations.dll
 C:\Users\admin\Source\Repos\ProjectSEM3\WebOnlineAuction\bin\Newtonsoft.Json.dll
 C:\Users\admin\Source\Repos\ProjectSEM3\WebOnlineAuction\bin\Owin.dll
 C:\Users\admin\Source\Repos\ProjectSEM3\WebOnlineAuction\bin\Pri.LongPath.dll
@@ -90,6 +93,7 @@ C:\Users\admin\Source\Repos\ProjectSEM3\WebOnlineAuction\bin\WebDML.pdb
 C:\Users\admin\Source\Repos\ProjectSEM3\WebOnlineAuction\bin\WebDML.dll.config
 C:\Users\admin\Source\Repos\ProjectSEM3\WebOnlineAuction\bin\Autofac.pdb
 C:\Users\admin\Source\Repos\ProjectSEM3\WebOnlineAuction\bin\Autofac.xml
+C:\Users\admin\Source\Repos\ProjectSEM3\WebOnlineAuction\bin\AutoMapper.xml
 C:\Users\admin\Source\Repos\ProjectSEM3\WebOnlineAuction\bin\CKSource.CKFinder.Connector.Config.xml
 C:\Users\admin\Source\Repos\ProjectSEM3\WebOnlineAuction\bin\CKSource.CKFinder.Connector.Core.xml
 C:\Users\admin\Source\Repos\ProjectSEM3\WebOnlineAuction\bin\CKSource.CKFinder.Connector.Host.Owin.xml
@@ -98,6 +102,7 @@ C:\Users\admin\Source\Repos\ProjectSEM3\WebOnlineAuction\bin\CKSource.FileSystem
 C:\Users\admin\Source\Repos\ProjectSEM3\WebOnlineAuction\bin\EntityFramework.xml
 C:\Users\admin\Source\Repos\ProjectSEM3\WebOnlineAuction\bin\EntityFramework.SqlServer.xml
 C:\Users\admin\Source\Repos\ProjectSEM3\WebOnlineAuction\bin\ImageProcessor.xml
+C:\Users\admin\Source\Repos\ProjectSEM3\WebOnlineAuction\bin\log4net.xml
 C:\Users\admin\Source\Repos\ProjectSEM3\WebOnlineAuction\bin\Microsoft.Bcl.AsyncInterfaces.xml
 C:\Users\admin\Source\Repos\ProjectSEM3\WebOnlineAuction\bin\Microsoft.Owin.xml
 C:\Users\admin\Source\Repos\ProjectSEM3\WebOnlineAuction\bin\Microsoft.Owin.Host.SystemWeb.xml
@@ -119,6 +124,3 @@ C:\Users\admin\Source\Repos\ProjectSEM3\WebOnlineAuction\obj\Debug\WebOnlineAuct
 C:\Users\admin\Source\Repos\ProjectSEM3\WebOnlineAuction\obj\Debug\WebOnlineAuction.csproj.CopyComplete
 C:\Users\admin\Source\Repos\ProjectSEM3\WebOnlineAuction\obj\Debug\WebOnlineAuction.dll
 C:\Users\admin\Source\Repos\ProjectSEM3\WebOnlineAuction\obj\Debug\WebOnlineAuction.pdb
-C:\Users\admin\Source\Repos\ProjectSEM3\WebOnlineAuction\bin\log4net.dll
-C:\Users\admin\Source\Repos\ProjectSEM3\WebOnlineAuction\bin\Migrations.dll
-C:\Users\admin\Source\Repos\ProjectSEM3\WebOnlineAuction\bin\log4net.xml

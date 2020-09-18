@@ -3,6 +3,8 @@ C:\Users\admin\Source\Repos\ProjectSEM3\WebBML\bin\Debug\WebBML.dll
 C:\Users\admin\Source\Repos\ProjectSEM3\WebBML\bin\Debug\WebBML.pdb
 C:\Users\admin\Source\Repos\ProjectSEM3\WebBML\bin\Debug\EntityFramework.dll
 C:\Users\admin\Source\Repos\ProjectSEM3\WebBML\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\admin\Source\Repos\ProjectSEM3\WebBML\bin\Debug\log4net.dll
+C:\Users\admin\Source\Repos\ProjectSEM3\WebBML\bin\Debug\Migrations.dll
 C:\Users\admin\Source\Repos\ProjectSEM3\WebBML\bin\Debug\WebDML.dll
 C:\Users\admin\Source\Repos\ProjectSEM3\WebBML\bin\Debug\System.Web.Mvc.dll
 C:\Users\admin\Source\Repos\ProjectSEM3\WebBML\bin\Debug\System.Web.WebPages.dll
@@ -14,6 +16,7 @@ C:\Users\admin\Source\Repos\ProjectSEM3\WebBML\bin\Debug\WebDML.pdb
 C:\Users\admin\Source\Repos\ProjectSEM3\WebBML\bin\Debug\WebDML.dll.config
 C:\Users\admin\Source\Repos\ProjectSEM3\WebBML\bin\Debug\EntityFramework.xml
 C:\Users\admin\Source\Repos\ProjectSEM3\WebBML\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\admin\Source\Repos\ProjectSEM3\WebBML\bin\Debug\log4net.xml
 C:\Users\admin\Source\Repos\ProjectSEM3\WebBML\bin\Debug\System.Web.Mvc.xml
 C:\Users\admin\Source\Repos\ProjectSEM3\WebBML\bin\Debug\System.Web.WebPages.xml
 C:\Users\admin\Source\Repos\ProjectSEM3\WebBML\bin\Debug\System.Web.WebPages.Razor.xml
@@ -24,6 +27,3 @@ C:\Users\admin\Source\Repos\ProjectSEM3\WebBML\obj\Debug\WebBLL.csproj.CoreCompi
 C:\Users\admin\Source\Repos\ProjectSEM3\WebBML\obj\Debug\WebBLL.csproj.CopyComplete
 C:\Users\admin\Source\Repos\ProjectSEM3\WebBML\obj\Debug\WebBML.dll
 C:\Users\admin\Source\Repos\ProjectSEM3\WebBML\obj\Debug\WebBML.pdb
-C:\Users\admin\Source\Repos\ProjectSEM3\WebBML\bin\Debug\log4net.dll
-C:\Users\admin\Source\Repos\ProjectSEM3\WebBML\bin\Debug\Migrations.dll
-C:\Users\admin\Source\Repos\ProjectSEM3\WebBML\bin\Debug\log4net.xml

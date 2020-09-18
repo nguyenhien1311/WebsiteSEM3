@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WebDML.DataModels
+namespace WebDAL.DataModels
 {
    public class BidLog
     {

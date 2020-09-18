@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WebDML.DataModels
+namespace WebDAL.DataModels
 {
     public class Administrator
     {
@@ -14,9 +14,11 @@ namespace WebDML.DataModels
         [Display(Name ="Admin ID")]
         public string AdminId { get; set; }
         [Required(ErrorMessage = "Please enter login name")]
+        [MinLength(6, ErrorMessage = "Login name need atleast {0} charactor")]
         [Display(Name = "Login Name")]
         public string LoginName { get; set; }
         [Required(ErrorMessage = "Please enter password")]
+        [MinLength(6, ErrorMessage = "Passsword need atleast {0} charactor")]
         [Display(Name = "Password")]
         public string Password { get; set; }
 

@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WebDML.DataModels
+namespace WebDAL.DataModels
 {
     public class Rating
     {
@@ -21,6 +21,9 @@ namespace WebDML.DataModels
 
         [DataType(DataType.MultilineText)]
         public string Comment { get; set; }
+
+        [DataType(DataType.DateTime)]
+        public string Created { get; set; }
 
         [ForeignKey("FromId")]
         public virtual Users FromUser { get; set; }

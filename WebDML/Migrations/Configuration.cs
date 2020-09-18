@@ -1,11 +1,11 @@
-﻿namespace WebDML.Migrations
+﻿namespace WebDAL.Migrations
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<WebDML.OLAuctionContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<WebDAL.OLAuctionContext>
     {
         public Configuration()
         {
@@ -13,7 +13,7 @@
             AutomaticMigrationsEnabled = true;
         }
 
-        protected override void Seed(WebDML.OLAuctionContext context)
+        protected override void Seed(WebDAL.OLAuctionContext context)
         {
             //  This method will be called after migrating to the latest version.
 

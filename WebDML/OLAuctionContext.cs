@@ -4,9 +4,9 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WebDML.DataModels;
+using WebDAL.DataModels;
 
-namespace WebDML
+namespace WebDAL
 {
     public class OLAuctionContext : DbContext
     {
@@ -21,5 +21,12 @@ namespace WebDML
         public virtual DbSet<BidLog> BidLogs { get; set; }
         public virtual DbSet<Rating> Ratings { get; set; }
         public virtual DbSet<Administrator> Administrators { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Users>().HasMany(x => x.Ratings).WithRequired(u => u.FromUser).WillCascadeOnDelete(false);
+            modelBuilder.Entity<Users>().HasMany(x => x.Ratings).WithRequired(u => u.ToUser).WillCascadeOnDelete(false);
+        }
     }
 }
