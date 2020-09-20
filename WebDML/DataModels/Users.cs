@@ -51,11 +51,10 @@ namespace WebDAL.DataModels
         public bool Status { get; set; }
 
         public int Rate { get; set; }
-
-        [DataType(DataType.DateTime)]
+        [Column(TypeName = "datetime2")]
         public DateTime Created { get; set; }
 
-        [DataType(DataType.DateTime)]
+        [Column(TypeName = "datetime2")]
         public DateTime Updated { get; set; }
 
         public virtual ICollection<Items> Items { get; set; }

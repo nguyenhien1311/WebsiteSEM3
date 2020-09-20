@@ -63,7 +63,7 @@ namespace WebOnlineAuction.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Login(string loginName, string password)
         {
-            var result = ad.Gets().SingleOrDefault(a => a.LoginName.Equals(loginName));
+            var result = ad.Gets().FirstOrDefault(a => a.LoginName.Equals(loginName));
             if (result != null)
             {
                 if (result.Password.ToLower().Equals(password.ToLower()))

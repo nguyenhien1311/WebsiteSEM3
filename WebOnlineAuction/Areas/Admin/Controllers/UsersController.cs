@@ -39,6 +39,7 @@ namespace WebOnlineAuction.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult GetAll()
         {
+            var ha = u.Gets();
             var data = u.Gets().Select(u => new UserViewModel
             {
                 UserId = u.UserId,
@@ -87,13 +88,15 @@ namespace WebOnlineAuction.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult Update(string id)
         {
-            return Json(new { CodeStatus = 200, Data = u.Get(id) });
+            var data = u.Get(id);
+            return Json(data,JsonRequestBehavior.AllowGet);
         }
 
         // edit user's info with new info
         [HttpPost]
         public ActionResult Update(Users user)
         {
+            user.Updated = DateTime.Now;
             if (u.Update(user))
                 return Json(new { CodeStatus = 200, message = "Update complete!" });
             return Json(new { CodeStatus = 200, message = "Update faild!" });

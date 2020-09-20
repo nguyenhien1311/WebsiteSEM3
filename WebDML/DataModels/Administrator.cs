@@ -22,7 +22,7 @@ namespace WebDAL.DataModels
         [MinLength(5, ErrorMessage = "Passsword need atleast {0} charactor")]
         [Display(Name = "Password")]
         public string Password { get; set; }
-        [DataType(DataType.DateTime)]
+        [Column(TypeName = "datetime2")]
         public DateTime Created { get; set; }
 
         public bool Status { get; set; }

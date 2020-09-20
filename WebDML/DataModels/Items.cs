@@ -12,9 +12,9 @@ namespace WebDAL.DataModels
     public class Items
     {
         [Key]
-        [Required(ErrorMessage ="Please enter item id"),MaxLength(500)]
-        [DataType(DataType.Text,ErrorMessage = "Item id must be a string value")]
-        [Display(Name ="Item Id")]
+        [Required(ErrorMessage = "Please enter item id"), MaxLength(500)]
+        [DataType(DataType.Text, ErrorMessage = "Item id must be a string value")]
+        [Display(Name = "Item Id")]
         public string ItemId { get; set; }
 
         [Required(ErrorMessage = "Please enter item title"), MaxLength(500)]
@@ -37,11 +37,12 @@ namespace WebDAL.DataModels
         [Display(Name = "Status")]
         public bool BidStatus { get; set; }
 
+        [Column(TypeName ="datetime2")]
         [Display(Name = "Auction start date")]
         public DateTime BidStartDate { get; set; }
 
         [Required(ErrorMessage = "Please enter auction end date")]
-        [DataType(DataType.DateTime)]
+        [Column(TypeName = "datetime2")]
         [Display(Name = "Auction end date")]
         public DateTime BidEndDate { get; set; }
 

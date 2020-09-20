@@ -63,89 +63,90 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
-    @section scripts{
-        <script>
-            var edit = false;
-            function LoadCategory() {
+</div>
+@section scripts{
+    <script>
+        var edit = false;
+        function LoadCategory() {
+            $.ajax({
+                type: 'GET',
+                url: 'Admin/Category/GetAll',
+                success: function (res) {
+                    var rows = '';
+                    $.each(res, function (idx, item) {
+                        rows += `<tr>
+                                                        <td>${item.CategoryId}</td>
+                                                        <td>${item.CategoryName}</td>
+                                                        <td>${item.Description}</td>
+                                                    <td>
+                                                        <button data-id="${item.CategoryId}" class="btn btn-warning btn-edit">Edit</button>
+                                                        <button data-id="${item.CategoryId}" class="btn btn-warning btn-merge">Merge</button>
+                                                        <button data-id="${item.CategoryId}" class="btn btn-danger btn-del">Delete</button>
+                                                    </td>
+                                                    </tr>`
+                    });
+                    $(".tbl_Categories").html(rows);
+                }
+            })
+        }
+        $(function () {
+            LoadCategory();
+            $("#popupModal").on('hide.bs.modal', function () {
+                $("#Id").val("");
+                $("#Name").val("");
+                $("#Price").val("");
+                $("#Image").val("");
+                edit = false;
+            })
+            $(document).on("click", ".btn-edit", function () {
+                var id = $(this).data("id");
+                edit = true;
                 $.ajax({
                     type: 'GET',
-                    url: 'Admin/Category/GetAll',
+                    url: 'Admin/Category/Update/' + id,
                     success: function (res) {
-                        var rows = '';
-                        $.each(res, function (idx, item) {
-                            rows += `<tr>
-                                                    <td>${item.CategoryId}</td>
-                                                    <td>${item.CategoryName}</td>
-                                                    <td>${item.Description}</td>
-                                                <td>
-                                                    <button data-id="${item.CategoryId}" class="btn btn-warning btn-edit">Edit</button>
-                                                    <button data-id="${item.CategoryId}" class="btn btn-warning btn-merge">Merge</button>
-                                                    <button data-id="${item.CategoryId}" class="btn btn-danger btn-del">Delete</button>
-                                                </td>
-                                                </tr>`
-                        });
-                        $(".tbl_Categories").html(rows);
-                    }
-                })
-            }
-            $(function () {
-                LoadCategory();
-                $("#popupModal").on('hide.bs.modal', function () {
-                    $("#Id").val("");
-                    $("#Name").val("");
-                    $("#Price").val("");
-                    $("#Image").val("");
-                    edit = false;
-                })
-                $(document).on("click", ".btn-edit", function () {
-                    var id = $(this).data("id");
-                    edit = true;
-                    $.ajax({
-                        type: 'GET',
-                        url: 'Admin/Category/Update/' + id,
-                        success: function (res) {
-                            $("#Id").val(kq.CategoryId);
-                            $("#Name").val(kq.CategoryName);
-                            $("#Description").val(kq.Description);
-                            $("#popupModal").modal('show');
-                        }
-                    })
-                })
-                $(".btn-save").click(function () {
-
-                    var cat = {
-                        CategoryId: $("#Id").val(),
-                        CategoryName: $("#Name").val(),
-                        Description: $("#Description").val()
-                    }
-
-                    var _url = edit ? 'Admin/Category/Update/' : 'Admin/Category/Create/'
-
-                    $.ajax({
-                        type: 'POST',
-                        url: _url,
-                        data: cat,
-                        success: function (res) {
-                            alert(res.Message);
-                            LoadCategory();
-                        }
-                    })
-
-                })
-                $(document).on("click", ".btn-del", function () {
-                    var result = confirm('Are you really want to delete this?');
-                    if (result) {
-                        var id = $(this).data("id");
-                        $.ajax({
-                            type: 'GET',
-                            url: 'Admin/Category/Delete/' + id,
-                            success: function (res) {
-                                alert(res.Message);
-                                loadProduct();
-                            }
-                        })
+                        $("#Id").val(kq.CategoryId);
+                        $("#Name").val(kq.CategoryName);
+                        $("#Description").val(kq.Description);
+                        $("#popupModal").modal('show');
                     }
                 })
             })
-        </script>
-    }
+            $(".btn-save").click(function () {
+
+                var cat = {
+                    CategoryId: $("#Id").val(),
+                    CategoryName: $("#Name").val(),
+                    Description: $("#Description").val()
+                }
+
+                var _url = edit ? 'Admin/Category/Update/' : 'Admin/Category/Create/'
+
+                $.ajax({
+                    type: 'POST',
+                    url: _url,
+                    data: cat,
+                    success: function (res) {
+                        alert(res.Message);
+                        LoadCategory();
+                    }
+                })
+
+            })
+            $(document).on("click", ".btn-del", function () {
+                var result = confirm('Are you really want to delete this?');
+                if (result) {
+                    var id = $(this).data("id");
+                    $.ajax({
+                        type: 'GET',
+                        url: 'Admin/Category/Delete/' + id,
+                        success: function (res) {
+                            alert(res.Message);
+                            loadProduct();
+                        }
+                    })
+                }
+            })
+        })
+    </script>
+}

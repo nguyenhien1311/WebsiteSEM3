@@ -16,6 +16,6 @@ namespace WebDML.ViewModels
 
         public string Comment { get; set; }
 
-        public string Created { get; set; }
+        public DateTime Created { get; set; }
     }
 }

@@ -17,7 +17,7 @@ namespace WebDAL.DataModels
         public string UserId { get; set; }
 
         public float BidPrice { get; set; }
-        [DataType(DataType.DateTime)]
+        [Column(TypeName = "datetime2")]
         public DateTime BidDate { get; set; }
 
         [ForeignKey("UserId")]

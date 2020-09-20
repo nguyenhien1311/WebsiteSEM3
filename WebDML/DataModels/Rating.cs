@@ -22,8 +22,8 @@ namespace WebDAL.DataModels
         [DataType(DataType.MultilineText)]
         public string Comment { get; set; }
 
-        [DataType(DataType.DateTime)]
-        public string Created { get; set; }
+        [Column(TypeName = "datetime2")]
+        public DateTime Created { get; set; }
 
         [ForeignKey("FromId")]
         public virtual Users FromUser { get; set; }

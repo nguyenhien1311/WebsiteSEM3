@@ -8,48 +8,188 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                ID
-            </th>
-            <th>
-                Name
-            </th>
-            <th>
-                Email
-            </th>
-            <th>
-                Phone
-            </th>
-            <th>
-                Status
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody class="tbl_Users"></tbody>
-</table>
+<div class="table-striped">
+    <table class="table ">
+        <thead>
+            <tr>
+                <th>
+                    ID
+                </th>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Email
+                </th>
+                <th>
+                    Phone
+                </th>
+                <th>
+                    Status
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody class="tbl_Users"></tbody>
+    </table>
+</div>
 
-@section scripts{
+<div class="modal fade" id="popupModal" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Update User</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Id</label>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control" id="Id" name="Id" value="" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Name</label>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control" id="firstName" name="firstName" value="" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Name</label>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control" id="lastName" name="lastName" value="" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Description</label>
+                        <div class="col-md-10">
+                            <textarea class="form-control" id="Email" name="Email"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Description</label>
+                        <div class="col-md-10">
+                            <textarea class="form-control" id="Phone" name="Phone"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Description</label>
+                        <div class="col-md-10">
+                            <textarea class="form-control" id="UserName" name="UserName"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Description</label>
+                        <div class="col-md-10">
+                            <textarea class="form-control" id="Password" name="Password"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary btn-save">Save changes</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+</div>
+
+@section scripts {
     <script>
-        $.ajax({
-            type: 'GET',
-            url: 'Admin/Users/GetAll',
-            success: function (res) {
-                var rows = '';
-                $.each(res, function (idx, item) {
-                    rows += `<tr>
-                                <td>${item.UserId}</td>
-                                <td>${item.Name}</td>
-                                <td>${item.Email}</td>
-                                <td>${item.Phone}</td>
-                                <td>${item.Status}</td>
-                            </tr>`
-                });
-                $(".tbl_Users").html(rows);
-            }
+        var edit = false;
+        function LoadUsers() {
+
+            $.ajax({
+                type: 'GET',
+                url: 'Users/GetAll',
+                success: function (res) {
+                    var rows = '';
+                    $.each(res, function (idx, item) {
+                        rows += `<tr>
+                                     <td>${item.UserId}</td>
+                                     <td>${item.Name}</td>
+                                     <td>${item.Email}</td>
+                                     <td>${item.Phone}</td>
+                                     <td>${item.Status}</td>
+                                     <td>
+                                       <button data-id="${item.UserId}" class="btn btn-sm btn-warning btn-edit">Edit</button>
+                                       <button data-id="${item.UserId}" class="btn btn-sm btn-danger btn-del">Delete</button>
+                                     </td>
+                                  </tr > `
+                    });
+                    $(".tbl_Users").html(rows);
+                }
+            })
+        }
+        $(function () {
+            LoadUsers();
+
+            $("#popupModal").on('hide.bs.modal', function () {
+                $("#firstName").val(""),
+                    $("#lastName").val(""),
+                    $("#Email").val(""),
+                    $("#Phone").val(""),
+                    $("#UserName").val(""),
+                    $("#Password").val("")
+                edit = false;
+            })
+
+            $(document).on("click", ".btn-edit", function () {
+                var id = $(this).data("id");
+                edit = true;
+                $.ajax({
+                    type: 'GET',
+                    url: 'Users/Update/' + id,
+                    success: function (res) {
+                        $("#lastName").val(res.LastName);
+                        $("#firstName").val(res.FirstName);
+                        $("#Email").val(res.Email);
+                        $("#Phone").val(res.Phone);
+                        $("#UserName").val(res.UserName);
+                        $("#Password").val(res.Password);
+                        $("#popupModal").modal('show');
+                    }
+                })
+            })
+            $(".btn-save").click(function () {
+
+                var user = {
+                    FirstName: $("#firstName").val(),
+                    LastName: $("#lastName").val(),
+                    Email: $("#Email").val(),
+                    Phone: $("#Phone").val(),
+                    UserName: $("#UserName").val(),
+                    Password: $("#Password").val()
+                }
+
+                var _url = edit ? 'Users/Update/' : 'Users/Create/'
+
+                $.ajax({
+                    type: 'POST',
+                    url: _url,
+                    data: user,
+                    success: function (res) {
+                        alert(res.Message);
+                        LoadUsers();
+                    }
+                })
+
+            })
+            $(document).on("click", ".btn-del", function () {
+                var result = confirm('Are you really want to delete this?');
+                if (result) {
+                    var id = $(this).data("id");
+                    $.ajax({
+                        type: 'GET',
+                        url: 'Users/Delete/' + id,
+                        success: function (res) {
+                            alert(res.Message);
+                            LoadUsers();
+                        }
+                    })
+                }
+            })
         })
     </script>
-    }
+}
