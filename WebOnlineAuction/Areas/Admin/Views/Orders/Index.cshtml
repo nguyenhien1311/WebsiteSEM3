@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Orders list</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Order ID
+            </th>
+            <th>
+                Buyer
+            </th>
+            <th>
+                Item
+            </th>
+            <th>
+                Price
+            </th>
+            <th>
+                Status
+            </th>
+            <th>
+                Created
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody class="tbl_Orders"></tbody>
+</table>
+
+@section scripts{
+    <script>
+        $.ajax({
+            type: 'GET',
+            url: 'Admin/Orders/GetAll',
+            success: function (res) {
+                var rows = '';
+                $.each(res, function (idx, item) {
+                    rows += `<tr>
+                                    <td>${item.OrderId}</td>
+                                    <td>${item.User}</td>
+                                    <td>${item.Item}</td>
+                                    <td>${item.Price}</td>
+                                    <td>${item.Created}</td>
+                                    <td>${item.Status}</td>
+                                </tr>`;
+                })
+                $(".tbl_Orders").html(rows);
+            }
+        })
+    </script>
+}

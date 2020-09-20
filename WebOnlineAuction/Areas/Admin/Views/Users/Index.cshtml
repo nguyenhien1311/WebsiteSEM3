@@ -1,0 +1,55 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>User</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                ID
+            </th>
+            <th>
+                Name
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+                Phone
+            </th>
+            <th>
+                Status
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody class="tbl_Users"></tbody>
+</table>
+
+@section scripts{
+    <script>
+        $.ajax({
+            type: 'GET',
+            url: 'Admin/Users/GetAll',
+            success: function (res) {
+                var rows = '';
+                $.each(res, function (idx, item) {
+                    rows += `<tr>
+                                <td>${item.UserId}</td>
+                                <td>${item.Name}</td>
+                                <td>${item.Email}</td>
+                                <td>${item.Phone}</td>
+                                <td>${item.Status}</td>
+                            </tr>`
+                });
+                $(".tbl_Users").html(rows);
+            }
+        })
+    </script>
+    }

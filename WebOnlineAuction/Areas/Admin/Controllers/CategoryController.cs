@@ -50,7 +50,7 @@ namespace WebOnlineAuction.Areas.Admin.Controllers
         }
 
         // get category by id
-        [HttpGet]
+        [HttpPost]
         public ActionResult Update(string id)
         {
             return Json(new { CodeStatus = 200, Data = c.Get(id) });
@@ -65,7 +65,7 @@ namespace WebOnlineAuction.Areas.Admin.Controllers
         }
 
         // delete a category 
-        [HttpDelete]
+        [HttpGet]
         public ActionResult Delete(string id)
         {
             c.Remove(id);

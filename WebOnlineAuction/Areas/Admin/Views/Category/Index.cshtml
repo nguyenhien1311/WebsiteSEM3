@@ -1,0 +1,151 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Category</h2>
+<p>
+    <button class="btn btn-primary" data-toggle="modal" data-target="#popupModal"><i class="glyphicon glyphicon-plus"></i>Create New</button>
+</p>
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    ID
+                </th>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Description
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody class="tbl_Categories"></tbody>
+    </table>
+</div>
+
+<div class="modal fade" id="popupModal" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Update Category</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Id</label>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control" id="Id" name="Id" value="" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Name</label>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control" id="Name" name="Name" value="" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Description</label>
+                        <div class="col-md-10">
+                            <textarea class="form-control" id="Description" name="Description"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary btn-save">Save changes</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    @section scripts{
+        <script>
+            var edit = false;
+            function LoadCategory() {
+                $.ajax({
+                    type: 'GET',
+                    url: 'Admin/Category/GetAll',
+                    success: function (res) {
+                        var rows = '';
+                        $.each(res, function (idx, item) {
+                            rows += `<tr>
+                                                    <td>${item.CategoryId}</td>
+                                                    <td>${item.CategoryName}</td>
+                                                    <td>${item.Description}</td>
+                                                <td>
+                                                    <button data-id="${item.CategoryId}" class="btn btn-warning btn-edit">Edit</button>
+                                                    <button data-id="${item.CategoryId}" class="btn btn-warning btn-merge">Merge</button>
+                                                    <button data-id="${item.CategoryId}" class="btn btn-danger btn-del">Delete</button>
+                                                </td>
+                                                </tr>`
+                        });
+                        $(".tbl_Categories").html(rows);
+                    }
+                })
+            }
+            $(function () {
+                LoadCategory();
+                $("#popupModal").on('hide.bs.modal', function () {
+                    $("#Id").val("");
+                    $("#Name").val("");
+                    $("#Price").val("");
+                    $("#Image").val("");
+                    edit = false;
+                })
+                $(document).on("click", ".btn-edit", function () {
+                    var id = $(this).data("id");
+                    edit = true;
+                    $.ajax({
+                        type: 'GET',
+                        url: 'Admin/Category/Update/' + id,
+                        success: function (res) {
+                            $("#Id").val(kq.CategoryId);
+                            $("#Name").val(kq.CategoryName);
+                            $("#Description").val(kq.Description);
+                            $("#popupModal").modal('show');
+                        }
+                    })
+                })
+                $(".btn-save").click(function () {
+
+                    var cat = {
+                        CategoryId: $("#Id").val(),
+                        CategoryName: $("#Name").val(),
+                        Description: $("#Description").val()
+                    }
+
+                    var _url = edit ? 'Admin/Category/Update/' : 'Admin/Category/Create/'
+
+                    $.ajax({
+                        type: 'POST',
+                        url: _url,
+                        data: cat,
+                        success: function (res) {
+                            alert(res.Message);
+                            LoadCategory();
+                        }
+                    })
+
+                })
+                $(document).on("click", ".btn-del", function () {
+                    var result = confirm('Are you really want to delete this?');
+                    if (result) {
+                        var id = $(this).data("id");
+                        $.ajax({
+                            type: 'GET',
+                            url: 'Admin/Category/Delete/' + id,
+                            success: function (res) {
+                                alert(res.Message);
+                                loadProduct();
+                            }
+                        })
+                    }
+                })
+            })
+        </script>
+    }

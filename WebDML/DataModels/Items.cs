@@ -30,7 +30,6 @@ namespace WebDAL.DataModels
         public string ItemDescription { get; set; }
 
         [Required(ErrorMessage = "Please enter item image link"), MaxLength(500)]
-        [DataType(DataType.MultilineText)]
         [Display(Name = "Item Image")]
         [AllowHtml]
         public string ItemImage { get; set; }

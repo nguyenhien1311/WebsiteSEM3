@@ -16,6 +16,7 @@ namespace WebDAL.DataModels
         public string ItemId { get; set; }
         public double Price { get; set; }
         public bool Status { get; set; }
+        [DataType(DataType.DateTime)]
         public DateTime Created { get; set; }
 
         [ForeignKey("UserId")]

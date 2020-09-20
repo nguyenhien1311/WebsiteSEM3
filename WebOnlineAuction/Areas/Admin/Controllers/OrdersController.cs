@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CKSource.CKFinder.Connector.Core.Resources;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http.Formatting;
@@ -36,6 +37,19 @@ namespace WebOnlineAuction.Areas.Admin.Controllers
                 Created = x.Created,
                 Status =x.Status
             }).OrderBy(o=>o.Created);
+            return Json(data,JsonRequestBehavior.AllowGet);
+        }
+
+        // get all order have status = true and short by created date of a user by id
+        [HttpGet]
+        public ActionResult GetById(string id) {
+            var data = orders.Gets(o => o.UserId.ToLower().Equals(id.ToLower()) && o.Status == true).Select( o=>new OrderViewModel { 
+                OrderId = o.OrderId,
+                User = o.Users.FirstName + " " + o.Users.LastName,
+                Item = o.Items.ItemTitle,
+                Price = o.Price,
+                Created = o.Created
+            }).OrderBy(o => o.Created);
             return Json(data,JsonRequestBehavior.AllowGet);
         }
     }

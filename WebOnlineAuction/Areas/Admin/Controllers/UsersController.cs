@@ -42,8 +42,7 @@ namespace WebOnlineAuction.Areas.Admin.Controllers
             var data = u.Gets().Select(u => new UserViewModel
             {
                 UserId = u.UserId,
-                FirstName = u.FirstName,
-                LastName = u.LastName,
+                Name = u.FirstName + " "+ u.LastName,
                 Email = u.Email,
                 Phone = u.Phone,
                 UserName = u.UserName,

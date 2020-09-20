@@ -21,12 +21,6 @@ namespace WebOnlineAuction.Areas.Admin.Controllers
         public HomeController()
         {
             ad = new Repository<Administrator>();
-
-            Administrator test = new Administrator();
-            test.AdminId = "AD01";
-            test.LoginName = "Admin1";
-            test.Password = "admin";
-            ad.Create(test);
         }
 
         // GET: Admin/Home
@@ -74,11 +68,7 @@ namespace WebOnlineAuction.Areas.Admin.Controllers
             {
                 if (result.Password.ToLower().Equals(password.ToLower()))
                 {
-                    var current = Session["admin"];
-                    if (current == null)
-                    {
-                        Session["admin"] = result;
-                    }
+                    Session["admin"] = result;
                     return Json(new { status = true, message = "Login Successfull!" });
                 }
                 return Json(new { status = false, message = "Password invalid!" });

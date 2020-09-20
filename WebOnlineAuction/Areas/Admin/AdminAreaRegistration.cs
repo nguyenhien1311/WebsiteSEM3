@@ -21,5 +21,7 @@ namespace WebOnlineAuction.Areas.Admin
                 namespaces: new[] { "WebOnlineAuction.Areas.Admin.Controllers" }
             );
         }
+
+        
     }
 }

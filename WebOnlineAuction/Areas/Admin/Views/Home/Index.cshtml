@@ -16,7 +16,8 @@
                 <th>Status</th>
             </tr>
         </thead>
-        <tbody class ="tbl_Admin"></tbodyclass>
+        <tbody class ="tbl_Admin">
+            </tbodyclass>
     </table>
 </div>
 @section scripts{
@@ -26,20 +27,15 @@
             $.ajax({
                 type: 'GET',
                 url: url + 'GetAll',
-                success: function (kq) {
-                    console.log(kq);
+                success: function (res) {
                     var rows = '';
-                    $.each(kq, function (idx, item) {
+                    $.each(res, function (idx, item) {
                         rows += `<tr>
                                     <td>${item.AdminId}</td>
                                     <td>${item.LoginName}</td>
                                     <td>${item.Password}</td>
                                     <td>${item.Created}</td>
                                     <td>${item.Status}</td>
-                                            <td>
-                                                <button data-id="${item.AdminId}" class="btn btn-warning btn-edit">Edit</button>
-                                                <button data-id="${item.AdminId}" class="btn btn-danger btn-del">Delete</button>
-                                            </td>
                                  </tr>`;
                     });
                     $(".tbl_Admin").html(rows);

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -51,8 +52,10 @@ namespace WebDAL.DataModels
 
         public int Rate { get; set; }
 
+        [DataType(DataType.DateTime)]
         public DateTime Created { get; set; }
 
+        [DataType(DataType.DateTime)]
         public DateTime Updated { get; set; }
 
         public virtual ICollection<Items> Items { get; set; }
