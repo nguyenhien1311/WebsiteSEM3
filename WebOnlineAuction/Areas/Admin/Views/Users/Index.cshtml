@@ -3,86 +3,82 @@
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>User</h2>
+<h2>User Management </h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<div class="table-striped">
-    <table class="table ">
-        <thead>
-            <tr>
-                <th>
-                    ID
-                </th>
-                <th>
-                    Name
-                </th>
-                <th>
-                    Email
-                </th>
-                <th>
-                    Phone
-                </th>
-                <th>
-                    Status
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody class="tbl_Users"></tbody>
-    </table>
+
+<div class="card">
+    <div class="card-body">
+        <p>
+            <button class="btn btn-rounded btn-success" data-toggle="modal" data-target="#popupModal"><i class="glyphicon glyphicon-plus"></i>Create New</button>
+        </p>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        ID
+                    </th>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Email
+                    </th>
+                    <th>
+                        Phone
+                    </th>
+                    <th>
+                        Status
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody class="tbl_Users"></tbody>
+        </table>
+    </div>
 </div>
-
 <div class="modal fade" id="popupModal" role="dialog">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">Update User</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
                 <div class="form-horizontal">
-                    <div class="form-group">
-                        <label class="control-label col-md-2">Id</label>
-                        <div class="col-md-10">
-                            <input type="text" class="form-control" id="Id" name="Id" value="" />
+                    <div class="form-group row">
+                        <label for="exampleInputUsername2" class="col-sm-3 col-form-label">First Name</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="firstName" name="firstName" placeholder="First Name">
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="control-label col-md-2">Name</label>
-                        <div class="col-md-10">
-                            <input type="text" class="form-control" id="firstName" name="firstName" value="" />
+                    <div class="form-group row">
+                        <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Last Name</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last Name">
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="control-label col-md-2">Name</label>
-                        <div class="col-md-10">
-                            <input type="text" class="form-control" id="lastName" name="lastName" value="" />
+                    <div class="form-group row">
+                        <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Email</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="Email" name="Email" placeholder="Email@gmail.com etc">
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="control-label col-md-2">Description</label>
-                        <div class="col-md-10">
-                            <textarea class="form-control" id="Email" name="Email"></textarea>
+                    <div class="form-group row">
+                        <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Phone</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="Phone" name="Phone" placeholder="0123456789">
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="control-label col-md-2">Description</label>
-                        <div class="col-md-10">
-                            <textarea class="form-control" id="Phone" name="Phone"></textarea>
+                    <div class="form-group row">
+                        <label for="exampleInputUsername2" class="col-sm-3 col-form-label">User Name</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="UserName" name="UserName" placeholder="Username">
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="control-label col-md-2">Description</label>
-                        <div class="col-md-10">
-                            <textarea class="form-control" id="UserName" name="UserName"></textarea>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-md-2">Description</label>
-                        <div class="col-md-10">
-                            <textarea class="form-control" id="Password" name="Password"></textarea>
+                    <div class="form-group row">
+                        <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Password</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="Password" name="Password" placeholder="Password">
                         </div>
                     </div>
                 </div>
@@ -99,7 +95,6 @@
     <script>
         var edit = false;
         function LoadUsers() {
-
             $.ajax({
                 type: 'GET',
                 url: 'Users/GetAll',
@@ -107,16 +102,17 @@
                     var rows = '';
                     $.each(res, function (idx, item) {
                         rows += `<tr>
-                                     <td>${item.UserId}</td>
-                                     <td>${item.Name}</td>
-                                     <td>${item.Email}</td>
-                                     <td>${item.Phone}</td>
-                                     <td>${item.Status}</td>
-                                     <td>
-                                       <button data-id="${item.UserId}" class="btn btn-sm btn-warning btn-edit">Edit</button>
-                                       <button data-id="${item.UserId}" class="btn btn-sm btn-danger btn-del">Delete</button>
-                                     </td>
-                                  </tr > `
+                                         <td>${item.UserId}</td>
+                                         <td>${item.Name}</td>
+                                         <td>${item.Email}</td>
+                                         <td>${item.Phone}</td>
+                                         <td>${item.Status}</td>
+                                         <td>
+                                           <button data-id="${item.UserId}" class="btn btn-sm btn-warning btn-edit" data-toggle="modal" data-target="#popupModal">Edit</button>
+                                           <button data-id="${item.UserId}" class="btn btn-sm btn-info btn-view" >Details</button>
+                                           <button data-id="${item.UserId}" class="btn btn-sm btn-danger btn-del">Delete</button>
+                                         </td>
+                                      </tr > `
                     });
                     $(".tbl_Users").html(rows);
                 }
@@ -170,11 +166,22 @@
                     url: _url,
                     data: user,
                     success: function (res) {
-                        alert(res.Message);
+                        alert(res.message);
                         LoadUsers();
                     }
                 })
 
+            })
+            $(document).on("click", ".btn-view",function () {
+                var uid = $(this).data("id");
+                $.ajax({
+                    type: 'GET',
+                    url: 'Users/Update/' + uid,
+                    success: function (res) {
+                        console.log(res)
+                        window.location = "https://localhost:44382/Admin/Users/Details/" + res.UserId;
+                    }
+                })
             })
             $(document).on("click", ".btn-del", function () {
                 var result = confirm('Are you really want to delete this?');
@@ -184,12 +191,13 @@
                         type: 'GET',
                         url: 'Users/Delete/' + id,
                         success: function (res) {
-                            alert(res.Message);
+                            alert(res.message);
                             LoadUsers();
                         }
                     })
                 }
             })
+
         })
     </script>
 }

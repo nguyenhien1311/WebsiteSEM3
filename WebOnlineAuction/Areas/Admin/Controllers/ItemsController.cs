@@ -22,14 +22,23 @@ namespace WebOnlineAuction.Areas.Admin.Controllers
         // GET: Admin/Items
         public ActionResult Index()
         {
-            return View();
+            Administrator check = Session["admin"] as Administrator;
+            if (check != null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }
         }
 
         // get Item list
         [HttpGet]
-        public ActionResult GetAll()
+        public ActionResult GetAll(bool? sortBy)
         {
-            var data = items.Gets().Where(c => c.BidStatus == true).Select(c => new ItemViewModel
+            var condition = sortBy ?? true;
+            var data = items.Gets().Where(c => c.BidStatus == condition).Select(c => new ItemViewModel
             {
                 ItemId = c.ItemId,
                 ItemTitle = c.ItemTitle,

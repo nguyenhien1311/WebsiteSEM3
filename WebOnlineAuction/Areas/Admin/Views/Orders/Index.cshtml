@@ -5,52 +5,70 @@
 }
 
 <h2>Orders list</h2>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Order ID
-            </th>
-            <th>
-                Buyer
-            </th>
-            <th>
-                Item
-            </th>
-            <th>
-                Price
-            </th>
-            <th>
-                Status
-            </th>
-            <th>
-                Created
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody class="tbl_Orders"></tbody>
-</table>
-
+<div class="card">
+    <div class="card-body">
+        <div class="form-inline">
+            <input type="text" name="key" id="key" placeholder="Enter User ID to search.." />
+            <button type="submit" class="btn-inverse-primary btn-search">Search</button>
+        </div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        Order ID
+                    </th>
+                    <th>
+                        Buyer
+                    </th>
+                    <th>
+                        Item
+                    </th>
+                    <th>
+                        Price
+                    </th>
+                    <th>
+                        Status
+                    </th>
+                    <th>
+                        Created
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody class="tbl_Orders"></tbody>
+        </table>
+    </div>
+</div>
 @section scripts{
     <script>
-        $.ajax({
-            type: 'GET',
-            url: 'Admin/Orders/GetAll',
-            success: function (res) {
-                var rows = '';
-                $.each(res, function (idx, item) {
-                    rows += `<tr>
-                                    <td>${item.OrderId}</td>
-                                    <td>${item.User}</td>
-                                    <td>${item.Item}</td>
-                                    <td>${item.Price}</td>
-                                    <td>${item.Created}</td>
-                                    <td>${item.Status}</td>
-                                </tr>`;
-                })
-                $(".tbl_Orders").html(rows);
-            }
+        function LoadOrder(key) {
+            $.ajax({
+                type: 'GET',
+                url: 'Orders/GetAll',
+                data: key,
+                success: function (res) {
+                    var rows = '';
+                    $.each(res, function (idx, item) {
+                        rows += `<tr>
+                                                                    <td>${item.OrderId}</td>
+                                                                    <td>${item.User}</td>
+                                                                    <td>${item.Item}</td>
+                                                                    <td>${item.Price}</td>
+                                                                    <td>${item.Created}</td>
+                                                                    <td>${item.Status}</td>
+                                                                </tr>`;
+                    })
+                    $(".tbl_Orders").html(rows);
+                }
+            })
+        }
+
+        $(function () {
+            LoadOrder();
+            $(document).on("click",".btn-search", function () {
+                var key = $("#key").val();
+                LoadOrder(key);
+            })
         })
     </script>
 }

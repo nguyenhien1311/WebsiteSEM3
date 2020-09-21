@@ -5,24 +5,62 @@
 }
 
 <h2>Admin List</h2>
-<div>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Login Name</th>
-                <th>Password</th>
-                <th>Created</th>
-                <th>Status</th>
-            </tr>
-        </thead>
-        <tbody class ="tbl_Admin">
-            </tbodyclass>
-    </table>
+
+<div class="card">
+
+    <div class="card-body">
+        <p>
+            <button class="btn btn-rounded  btn-primary" data-toggle="modal" data-target="#popupModal"><i class="glyphicon glyphicon-plus"></i>Create New</button>
+        </p>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Login Name</th>
+                    <th>Password</th>
+                    <th>Created</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody class="tbl_Admin">
+                </tbody>
+        </table>
+    </div>
+</div>
+<div class="modal fade" id="popupModal" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Update Admin</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal">
+                    <div class="form-group row">
+                        <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Login Name</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="loginName" name="loginName" placeholder="Login name">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Password</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="password" name="password" placeholder="Password">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary btn-save">Save changes</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 </div>
 @section scripts{
     <script>
         var url = '/Admin/Home/';
+        var edit = false;
         function loadAdmin() {
             $.ajax({
                 type: 'GET',
@@ -31,12 +69,15 @@
                     var rows = '';
                     $.each(res, function (idx, item) {
                         rows += `<tr>
-                                    <td>${item.AdminId}</td>
-                                    <td>${item.LoginName}</td>
-                                    <td>${item.Password}</td>
-                                    <td>${item.Created}</td>
-                                    <td>${item.Status}</td>
-                                 </tr>`;
+                                                    <td>${item.AdminId}</td>
+                                                    <td>${item.LoginName}</td>
+                                                    <td>${item.Password}</td>
+                                                    <td>${item.Created}</td>
+                                                    <td>${item.Status}</td>
+                                         <td>
+                                           <button data-id="${item.AdminId}" class="btn btn-sm btn-warning btn-edit" data-toggle="modal" data-target="#popupModal">Edit</button>
+                                         </td>
+                                                 </tr>`;
                     });
                     $(".tbl_Admin").html(rows);
                 }
@@ -44,6 +85,45 @@
         }
         $(function () {
             loadAdmin();
+            $("#popupModal").on('hide.bs.modal', function () {
+                $("#loginName").val(""),
+                    $("#password").val("")
+                edit = false;
+            })
+
+            $(document).on("click", ".btn-edit", function () {
+                var id = $(this).data("id");
+                edit = true;
+                $.ajax({
+                    type: 'GET',
+                    url: 'Home/Update/' + id,
+                    success: function (res) {
+                        $("#loginName").val(res.LoginName);
+                        $("#password").val(res.Password);
+                        $("#popupModal").modal('show');
+                    }
+                })
+            })
+            $(".btn-save").click(function () {
+
+                var admin = {
+                    loginName: $("#loginName").val(),
+                    password: $("#password").val()
+                }
+
+                var _url = edit ? 'Home/Update/' : 'Home/Create/'
+
+                $.ajax({
+                    type: 'POST',
+                    url: _url,
+                    data: admin,
+                    success: function (res) {
+                        alert(res.message);
+                        loadAdmin();
+                    }
+                })
+
+            })
         })
     </script>
 }

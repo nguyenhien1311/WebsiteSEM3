@@ -32,15 +32,22 @@ namespace WebOnlineAuction.Areas.Admin.Controllers
         // GET: Admin/Users
         public ActionResult Index()
         {
-            var data = u.Gets();
-            return View(data);
+            Administrator check = Session["admin"] as Administrator;
+            if (check != null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }
         }
 
         [HttpGet]
         public ActionResult GetAll()
         {
             var ha = u.Gets();
-            var data = u.Gets().Select(u => new UserViewModel
+            var data = u.Gets(x=>x.Status==true).Select(u => new UserViewModel
             {
                 UserId = u.UserId,
                 Name = u.FirstName + " "+ u.LastName,
@@ -59,7 +66,7 @@ namespace WebOnlineAuction.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Create(Users user)
         {
-            int num = u.Gets().Count();
+            int num = u.Gets().Count() +1;
             string id = "USER";
             if (num < 10)
             {
@@ -106,11 +113,10 @@ namespace WebOnlineAuction.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult BanUser(string id)
         {
-            string msg = "User have been banned!";
             var target = u.Get(id);
             target.Status = false;
             u.Update(target);
-            return Json(msg, JsonRequestBehavior.AllowGet);
+            return RedirectToAction("Index");
         }
 
         // Delete a Account and every items , biglogs , orders

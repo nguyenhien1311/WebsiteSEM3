@@ -5,54 +5,56 @@
 }
 
 <h2>Category</h2>
-<p>
-    <button class="btn btn-primary" data-toggle="modal" data-target="#popupModal"><i class="glyphicon glyphicon-plus"></i>Create New</button>
-</p>
-<div class="table-responsive">
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    ID
-                </th>
-                <th>
-                    Name
-                </th>
-                <th>
-                    Description
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody class="tbl_Categories"></tbody>
-    </table>
+<div class="card">
+    <div class="card-body">
+        <p>
+            <button class="btn btn-rounded  btn-primary" data-toggle="modal" data-target="#popupModal"><i class="glyphicon glyphicon-plus"></i>Create New</button>
+        </p>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        ID
+                    </th>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Description
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody class="tbl_Categories"></tbody>
+        </table>
+    </div>
 </div>
 
 <div class="modal fade" id="popupModal" role="dialog">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">Update Category</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
                 <div class="form-horizontal">
-                    <div class="form-group">
-                        <label class="control-label col-md-2">Id</label>
-                        <div class="col-md-10">
-                            <input type="text" class="form-control" id="Id" name="Id" value="" />
+                    <div class="form-group row">
+                        <label for="exampleInputUsername2" class="col-sm-3 col-form-label">ID</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="id" name="id" placeholder="TV">
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="control-label col-md-2">Name</label>
-                        <div class="col-md-10">
-                            <input type="text" class="form-control" id="Name" name="Name" value="" />
+                    <div class="form-group row">
+                        <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Name</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Television ect..">
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="control-label col-md-2">Description</label>
-                        <div class="col-md-10">
-                            <textarea class="form-control" id="Description" name="Description"></textarea>
+                    <div class="form-group row">
+                        <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Description</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="editor" name="editor"  placeholder="About a television ect..">
                         </div>
                     </div>
                 </div>
@@ -64,26 +66,59 @@
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
 </div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Merge Category</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal">
+                    <div class="form-group row">
+                        <label for="exampleInputUsername2" class="col-sm-3 col-form-label">From ID</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="fromId" name="fromId" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="exampleInputUsername2" class="col-sm-3 col-form-label">To ID</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="toId" name="toId" placeholder="TV etc....">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary btn-confirm">Confirm Merge</button>
+            </div>
+        </div>
+    </div>
+</div>
 @section scripts{
     <script>
         var edit = false;
         function LoadCategory() {
             $.ajax({
                 type: 'GET',
-                url: 'Admin/Category/GetAll',
+                url: 'Category/GetAll',
                 success: function (res) {
                     var rows = '';
                     $.each(res, function (idx, item) {
                         rows += `<tr>
-                                                        <td>${item.CategoryId}</td>
-                                                        <td>${item.CategoryName}</td>
-                                                        <td>${item.Description}</td>
-                                                    <td>
-                                                        <button data-id="${item.CategoryId}" class="btn btn-warning btn-edit">Edit</button>
-                                                        <button data-id="${item.CategoryId}" class="btn btn-warning btn-merge">Merge</button>
-                                                        <button data-id="${item.CategoryId}" class="btn btn-danger btn-del">Delete</button>
-                                                    </td>
-                                                    </tr>`
+                                 <td>${item.CategoryId}</td>
+                                 <td>${item.CategoryName}</td>
+                                 <td>${item.Description}</td>
+                                 <td>
+                                 <button data-id="${item.CategoryId}" class="btn btn-warning btn-edit" data-toggle="modal" data-target="#popupModal">Edit</button>
+                                <button data-id="${item.CategoryId}" class="btn btn-warning btn-merge" data-toggle="modal" data-target="#exampleModal">Merge</button>
+                              <button data-id="${item.CategoryId}" class="btn btn-danger btn-del" >Delete</button>
+                             </td>
+                             </tr>`
                     });
                     $(".tbl_Categories").html(rows);
                 }
@@ -92,10 +127,10 @@
         $(function () {
             LoadCategory();
             $("#popupModal").on('hide.bs.modal', function () {
-                $("#Id").val("");
-                $("#Name").val("");
-                $("#Price").val("");
-                $("#Image").val("");
+                $("#id").removeAttr("readonly");
+                $("#id").val("");
+                $("#name").val("");
+                $("#editor").val("");
                 edit = false;
             })
             $(document).on("click", ".btn-edit", function () {
@@ -103,11 +138,12 @@
                 edit = true;
                 $.ajax({
                     type: 'GET',
-                    url: 'Admin/Category/Update/' + id,
+                    url: 'Category/Update/' + id,
                     success: function (res) {
-                        $("#Id").val(kq.CategoryId);
-                        $("#Name").val(kq.CategoryName);
-                        $("#Description").val(kq.Description);
+                        $("#id").attr("readonly", "readonly");
+                        $("#id").val(res.CategoryId);
+                        $("#name").val(res.CategoryName);
+                        $("#editor").val(res.Description);
                         $("#popupModal").modal('show');
                     }
                 })
@@ -115,20 +151,23 @@
             $(".btn-save").click(function () {
 
                 var cat = {
-                    CategoryId: $("#Id").val(),
-                    CategoryName: $("#Name").val(),
-                    Description: $("#Description").val()
+                    CategoryId: $("#id").val(),
+                    CategoryName: $("#name").val(),
+                    Description: $("#editor").val()
                 }
 
-                var _url = edit ? 'Admin/Category/Update/' : 'Admin/Category/Create/'
+                var _url = edit ? 'Category/Update/' : 'Category/Create/'
 
                 $.ajax({
                     type: 'POST',
                     url: _url,
                     data: cat,
                     success: function (res) {
-                        alert(res.Message);
+                        alert(res.message);
                         LoadCategory();
+                    },
+                    error: function (err) {
+                        console.log(err);
                     }
                 })
 
@@ -137,15 +176,37 @@
                 var result = confirm('Are you really want to delete this?');
                 if (result) {
                     var id = $(this).data("id");
+                    console.log(id);
                     $.ajax({
                         type: 'GET',
-                        url: 'Admin/Category/Delete/' + id,
+                        url: 'Category/Delete/' + id,
                         success: function (res) {
-                            alert(res.Message);
-                            loadProduct();
+                            alert(res.message);
+                            LoadCategory();
                         }
                     })
                 }
+            })
+            $(document).on("click", ".btn-merge", function () {
+                var id = $(this).data("id");
+                        $("#fromId").val(id);
+                        $("#exampleModal").modal('show');
+                })
+            $(document).on("click", ".btn-confirm", function () {
+                console.log($("#fromId").val());
+                console.log($("#toId").val());
+                $.ajax({
+                    type: 'POST',
+                    url: 'Category/Merge',
+                    data: {
+                        FromID: $("#fromId").val(),
+                        ToId: $("#toId").val()
+                    },
+                    success: function (res) {
+                        alert(res.message);
+                        LoadCategory();
+                    }
+                })
             })
         })
     </script>

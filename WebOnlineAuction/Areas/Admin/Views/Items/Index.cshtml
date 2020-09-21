@@ -6,61 +6,76 @@
 
 <h2>Index</h2>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                ID
-            </th>
-            <th>
-                Category
-            </th>
-            <th>
-                Title
-            </th>
-            <th>
-                Image
-            </th>
-            <th>
-                Start Auction
-            </th>
-            <th>
-                End Auction
-            </th>
-            <th>
-                Bid Increment
-            </th>
-            <th>
-                Status
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody class="tbl_Items"></tbody>
-</table>
+<div class="card">
+    <div class="card-body">
+        <div class="form-control-static left"><a href="#" onclick="Sort()"><span class="mdi mdi-format-line-spacing"> Sort By Price </span></a></div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        ID
+                    </th>
+                    <th>
+                        Category
+                    </th>
+                    <th>
+                        Title
+                    </th>
+                    <th>
+                        Image
+                    </th>
+                    <th>
+                        Start Auction
+                    </th>
+                    <th>
+                        End Auction
+                    </th>
+                    <th>
+                        Bid Increment
+                    </th>
+                    <th>
+                        Status
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody class="tbl_Items"></tbody>
+        </table>
+    </div>
+</div>
 
 @section scripts{
     <script>
-        $.ajax({
-            type: 'GET',
-            url: 'Admin/Items/GetAll',
-            success: function (res) {
-                var rows = '';
-                $.each(res, function (idx, item) {
-                    rows += `<tr>
-                                <td>${item.ItemId}</td>
-                                <td>${item.CategorynName}</td>
-                                <td>${item.ItemTitle}</td>
-                                <td>${item.ItemImage}</td>
-                                <td>${item.BidStartDate}</td>
-                                <td>${item.BidEndDate}</td>
-                                <td>${item.BidIncrement}</td>
-                                <td>${item.BidStatus}</td>
-                                <td></td
-                            </tr>`
-                });
-                $(".tbl_Items").html(rows);
-            }
-        })
+        var sort = false;
+        function LoadItem (sorted) {
+            $.ajax({
+                type: 'GET',
+                url: 'Items/GetAll',
+                data: {
+                    condition: sorted
+                },
+                success: function (res) {
+                    var rows = '';
+                    $.each(res, function (idx, item) {
+                        rows += `<tr>
+                                                <td>${item.ItemId}</td>
+                                                <td>${item.CategorynName}</td>
+                                                <td>${item.ItemTitle}</td>
+                                                <td>${item.ItemImage}</td>
+                                                <td>${item.BidStartDate}</td>
+                                                <td>${item.BidEndDate}</td>
+                                                <td>${item.BidIncrement}</td>
+                                                <td>${item.BidStatus}</td>
+                                                <td></td
+                                            </tr>`
+                    });
+                    $(".tbl_Items").html(rows);
+                }
+            })
+        }
+        function Sort() {
+            sort = true;
+            LoadItem(sort);
+        }
     </script>
 }

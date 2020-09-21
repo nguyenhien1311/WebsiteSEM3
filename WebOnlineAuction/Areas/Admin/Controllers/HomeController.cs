@@ -33,7 +33,7 @@ namespace WebOnlineAuction.Areas.Admin.Controllers
             }
             else
             {
-                return RedirectToAction("Login");
+                return RedirectToAction("Login","Home");
             }
 
         }
@@ -80,7 +80,7 @@ namespace WebOnlineAuction.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Create(Administrator admin)
         {
-            int num = ad.Gets().Count();
+            int num = ad.Gets().Count() + 1;
             string id = "AD";
             if (num < 10)
             {
@@ -92,6 +92,7 @@ namespace WebOnlineAuction.Areas.Admin.Controllers
             }
             admin.AdminId = id;
             admin.Created = DateTime.Now;
+            admin.Status = true;
             if (ad.Create(admin))
                 return Json(new { CodeStatus = 200, message = "Create account complete!" });
             return Json(new { CodeStatus = 200, message = "Create account faild!" });
@@ -101,7 +102,8 @@ namespace WebOnlineAuction.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult Update(string id)
         {
-            return Json(new { CodeStatus = 200, Data = ad.Get(id) });
+            var data = ad.Get(id);
+            return Json(data,JsonRequestBehavior.AllowGet);
         }
         // edit admin's info with new info
         [HttpPost]

@@ -23,7 +23,15 @@ namespace WebOnlineAuction.Areas.Admin.Controllers
         // GET: Admin/Category
         public ActionResult Index()
         {
-            return View();
+            Administrator check = Session["admin"] as Administrator;
+            if (check != null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }
         }
 
 
@@ -50,10 +58,11 @@ namespace WebOnlineAuction.Areas.Admin.Controllers
         }
 
         // get category by id
-        [HttpPost]
+        [HttpGet]
         public ActionResult Update(string id)
         {
-            return Json(new { CodeStatus = 200, Data = c.Get(id) });
+            var data = c.Get(id);
+            return Json(data,JsonRequestBehavior.AllowGet);
         }
         // edit category's info with new info
         [HttpPost]
@@ -61,13 +70,14 @@ namespace WebOnlineAuction.Areas.Admin.Controllers
         {
             if (c.Update(cat))
                 return Json(new { CodeStatus = 200, message = "Update complete!" });
-            return Json(new { CodeStatus = 200, message = "Update faild!" });
+            return Json(new { CodeStatus = 200, message = "Update fail!" });
         }
 
         // delete a category 
         [HttpGet]
         public ActionResult Delete(string id)
         {
+            var dd = c.Get(id);
             c.Remove(id);
             return Json(new
             {
@@ -84,8 +94,9 @@ namespace WebOnlineAuction.Areas.Admin.Controllers
             {
                 item.CategoryId = toId;
             }
-            c.Remove(fromId);
-            return Json(new { status = true, message = "Merge 2 category completed!" });
+            if (c.Remove(fromId))
+                return Json(new { status = true, message = "Merge 2 category completed!" });
+            return Json(new { status = false, message = "Merge category failed!" });
         }
     }
 }
