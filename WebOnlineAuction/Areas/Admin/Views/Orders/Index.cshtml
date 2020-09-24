@@ -1,74 +1,66 @@
-﻿
+﻿@model IEnumerable<WebDAL.DataModels.Orders>
+
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>Orders list</h2>
-<div class="card">
-    <div class="card-body">
-        <div class="form-inline">
-            <input type="text" name="key" id="key" placeholder="Enter User ID to search.." />
-            <button type="submit" class="btn-inverse-primary btn-search">Search</button>
+    <div class="card">
+        <div class="card-header">
+            <div class="container"><h2>Orders Management</h2></div>
         </div>
-        <table class="table table-striped">
-            <thead>
+        <div class="card-body">
+            @{ string key = ViewBag.ordkey; }
+            @using (Html.BeginForm("Index","Orders",new { key = key },FormMethod.Post,null))
+            {
+            <div class="form-inline input-group">
+                <input type="text" style="border-radius:13px;border:none;" name="key" id="key" value="@key" placeholder="Enter user ID to search order ..." />
+                <div class="form-group">
+                    <button type="submit" style="border-radius:9px;border:none;width:50px;height:30px;margin-left:10px;"><span class="mdi mdi-send"></span></button>
+                </div>
+            </div>
+            }
+        <br />
+            <table class="table">
                 <tr>
                     <th>
-                        Order ID
+                        @Html.DisplayNameFor(model => model.Items.ItemTitle)
                     </th>
                     <th>
                         Buyer
                     </th>
                     <th>
-                        Item
+                        @Html.DisplayNameFor(model => model.Price)
                     </th>
                     <th>
-                        Price
+                        @Html.DisplayNameFor(model => model.Status)
                     </th>
                     <th>
-                        Status
+                        @Html.DisplayNameFor(model => model.Created)
                     </th>
-                    <th>
-                        Created
-                    </th>
-                    <th></th>
                 </tr>
-            </thead>
-            <tbody class="tbl_Orders"></tbody>
-        </table>
-    </div>
-</div>
-@section scripts{
-    <script>
-        function LoadOrder(key) {
-            $.ajax({
-                type: 'GET',
-                url: 'Orders/GetAll',
-                data: key,
-                success: function (res) {
-                    var rows = '';
-                    $.each(res, function (idx, item) {
-                        rows += `<tr>
-                                                                    <td>${item.OrderId}</td>
-                                                                    <td>${item.User}</td>
-                                                                    <td>${item.Item}</td>
-                                                                    <td>${item.Price}</td>
-                                                                    <td>${item.Created}</td>
-                                                                    <td>${item.Status}</td>
-                                                                </tr>`;
-                    })
-                    $(".tbl_Orders").html(rows);
-                }
-            })
-        }
 
-        $(function () {
-            LoadOrder();
-            $(document).on("click",".btn-search", function () {
-                var key = $("#key").val();
-                LoadOrder(key);
-            })
-        })
-    </script>
-}
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Items.ItemTitle)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Users.FirstName)
+                            @Html.DisplayFor(modelItem => item.Users.LastName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Price)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Status)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Created)
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>

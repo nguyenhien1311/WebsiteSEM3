@@ -1,0 +1,109 @@
+﻿@model WebDAL.DataModels.Items
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+
+<div class="card">
+    <div class="card-title container"><h2>Details Item</h2></div>
+    <div class="card-body">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Category.CategoryName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Category.CategoryName)
+            </dd>
+            <hr />
+            <dt>
+                Seller
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Users.FirstName) @Html.DisplayFor(model => model.Users.LastName)
+            </dd>
+
+            <hr />
+            <dt>
+                @Html.DisplayNameFor(model => model.ItemTitle)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ItemTitle)
+            </dd>
+
+            <hr />
+            <dt>
+                @Html.DisplayNameFor(model => model.ItemDescription)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ItemDescription)
+            </dd>
+
+            <hr />
+            <dt>
+                @Html.DisplayNameFor(model => model.ItemImage)
+            </dt>
+
+            <dd>
+                @{ string str = Model.ItemImage;}
+                <img src="@Url.Content(@str)" alt="Alternate Text" width="100" height="100" />
+            </dd>
+
+            <hr />
+            <dt>
+                @Html.DisplayNameFor(model => model.BidStatus)
+            </dt>
+
+            <dd>
+                @{ string sts = Model.BidStatus ? "Active" : "Inactive";}
+                @sts
+            </dd>
+
+            <hr />
+            <dt>
+                @Html.DisplayNameFor(model => model.BidStartDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.BidStartDate)
+            </dd>
+
+            <dt>
+                <hr />
+                @Html.DisplayNameFor(model => model.BidEndDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.BidEndDate)
+            </dd>
+
+            <hr />
+            <dt>
+                @Html.DisplayNameFor(model => model.BidIncrement)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.BidIncrement)
+            </dd>
+
+            <hr />
+            <dt>
+                @Html.DisplayNameFor(model => model.MinimumBid)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.MinimumBid)
+            </dd>
+
+        </dl>
+    </div>
+    <div class="card-footer">
+            <button class="btn btn-sm btn-rounded btn-info">@Html.ActionLink("Back to List", "Index",null,new { style="color:white;" })</button>  
+    </div>
+</div>

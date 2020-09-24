@@ -21,7 +21,7 @@ namespace WebDAL.ViewModels
         [Display(Name = "Password")]
         public string Password { get; set; }
 
-        public DateTime Created { get; set; }
+        public string Created { get; set; }
 
         public bool Status { get; set; }
     }

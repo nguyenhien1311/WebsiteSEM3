@@ -124,3 +124,7 @@ C:\Users\admin\Source\Repos\ProjectSEM3\WebOnlineAuction\obj\Debug\WebOnlineAuct
 C:\Users\admin\Source\Repos\ProjectSEM3\WebOnlineAuction\obj\Debug\WebOnlineAuction.csproj.CopyComplete
 C:\Users\admin\Source\Repos\ProjectSEM3\WebOnlineAuction\obj\Debug\WebOnlineAuction.dll
 C:\Users\admin\Source\Repos\ProjectSEM3\WebOnlineAuction\obj\Debug\WebOnlineAuction.pdb
+C:\Users\admin\Source\Repos\ProjectSEM3\WebOnlineAuction\bin\PagedList.dll
+C:\Users\admin\Source\Repos\ProjectSEM3\WebOnlineAuction\bin\PagedList.Mvc.dll
+C:\Users\admin\Source\Repos\ProjectSEM3\WebOnlineAuction\bin\PagedList.xml
+C:\Users\admin\Source\Repos\ProjectSEM3\WebOnlineAuction\bin\PagedList.Mvc.xml

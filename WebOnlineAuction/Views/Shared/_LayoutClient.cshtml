@@ -1,13 +1,373 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
+<html lang="en">
 
-<html>
+<!-- Mirrored from themewar.com/html/volta/shop_single.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Mar 2020 02:53:57 GMT -->
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title</title>
+    <title>Volta : Minimal Shopping HTML5 Template</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Include All CSS -->
+    <link rel="stylesheet" type="text/css" href="~/Content/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/css/animate.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/css/font-awesome.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/css/strok_gap_icon.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/css/settings.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/css/owl.carousel.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/css/preset.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/css/responsive.css" />
+    <!-- End Include All CSS -->
+    <!-- Favicon Icon -->
+    <link rel="icon" type="image/png" href="~/Content/~/Content/~/Content/js/favicon.png">
+    <style>
+        body {
+            margin: 0;
+            color: #6a6f8c;
+            font: 600 16px/18px 'Open Sans',sans-serif;
+        }
+
+        *, :after, :before {
+            box-sizing: border-box
+        }
+
+        .clearfix:after, .clearfix:before {
+            content: '';
+            display: table
+        }
+
+        .clearfix:after {
+            clear: both;
+            display: block
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none
+        }
+
+        .login-wrap {
+            width: 100%;
+            margin: auto;
+            max-width: 525px;
+            min-height: 670px;
+            position: relative;
+            background: url(https://raw.githubusercontent.com/khadkamhn/day-01-login-form/master/img/bg.jpg) no-repeat center;
+            box-shadow: 0 12px 15px 0 rgba(0,0,0,.24),0 17px 50px 0 rgba(0,0,0,.19);
+        }
+
+        .login-html {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            padding: 90px 70px 50px 70px;
+            background: rgba(40,57,101,.9);
+        }
+
+            .login-html .sign-in-htm,
+            .login-html .sign-up-htm {
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                position: absolute;
+                transform: rotateY(180deg);
+                backface-visibility: hidden;
+                transition: all .4s linear;
+            }
+
+            .login-html .sign-in,
+            .login-html .sign-up,
+            .login-form .group .check {
+                display: none;
+            }
+
+            .login-html .tab,
+            .login-form .group .label,
+            .login-form .group .button {
+                text-transform: uppercase;
+            }
+
+            .login-html .tab {
+                font-size: 22px;
+                margin-right: 15px;
+                padding-bottom: 5px;
+                margin: 0 15px 10px 0;
+                display: inline-block;
+                border-bottom: 2px solid transparent;
+            }
+
+            .login-html .sign-in:checked + .tab,
+            .login-html .sign-up:checked + .tab {
+                color: #fff;
+                border-color: #1161ee;
+            }
+
+        .login-form {
+            min-height: 345px;
+            position: relative;
+            perspective: 1000px;
+            transform-style: preserve-3d;
+        }
+
+            .login-form .group {
+                margin-bottom: 15px;
+            }
+
+                .login-form .group .label,
+                .login-form .group .input,
+                .login-form .group .button {
+                    width: 100%;
+                    color: #fff;
+                    display: block;
+                }
+
+                .login-form .group .input,
+                .login-form .group .button {
+                    border: none;
+                    padding: 15px 20px;
+                    border-radius: 25px;
+                    background: rgba(255,255,255,.1);
+                }
+
+                .login-form .group input[data-type="password"] {
+                    text-security: circle;
+                    -webkit-text-security: circle;
+                }
+
+                .login-form .group .label {
+                    color: #aaa;
+                    font-size: 12px;
+                }
+
+                .login-form .group .button {
+                    background: #1161ee;
+                }
+
+                .login-form .group label .icon {
+                    width: 15px;
+                    height: 15px;
+                    border-radius: 2px;
+                    position: relative;
+                    display: inline-block;
+                    background: rgba(255,255,255,.1);
+                }
+
+                    .login-form .group label .icon:before,
+                    .login-form .group label .icon:after {
+                        content: '';
+                        width: 10px;
+                        height: 2px;
+                        background: #fff;
+                        position: absolute;
+                        transition: all .2s ease-in-out 0s;
+                    }
+
+                    .login-form .group label .icon:before {
+                        left: 3px;
+                        width: 5px;
+                        bottom: 6px;
+                        transform: scale(0) rotate(0);
+                    }
+
+                    .login-form .group label .icon:after {
+                        top: 6px;
+                        right: 0;
+                        transform: scale(0) rotate(0);
+                    }
+
+                .login-form .group .check:checked + label {
+                    color: #fff;
+                }
+
+                    .login-form .group .check:checked + label .icon {
+                        background: #1161ee;
+                    }
+
+                        .login-form .group .check:checked + label .icon:before {
+                            transform: scale(1) rotate(45deg);
+                        }
+
+                        .login-form .group .check:checked + label .icon:after {
+                            transform: scale(1) rotate(-45deg);
+                        }
+
+        .login-html .sign-in:checked + .tab + .sign-up + .tab + .login-form .sign-in-htm {
+            transform: rotate(0);
+        }
+
+        .login-html .sign-up:checked + .tab + .login-form .sign-up-htm {
+            transform: rotate(0);
+        }
+
+        .hr {
+            height: 2px;
+            margin: 60px 0 50px 0;
+            background: rgba(255,255,255,.2);
+        }
+
+        .foot-lnk {
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-    <div>
-        @RenderBody()
+    <div class="preloader">
+        <div class="la-ball-scale-multiple la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
     </div>
+    <section class="header_top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-sm-5">
+                    <div class="topMenusHolder">
+                        <ul class="topMenus clearfix poppins">
+                            <li><a href="#"><i class="frontIcon icon-Exit"></i>Register</a></li>
+                            <li>
+                                <a href="@Url.Action("Login","Home")" data-toggle="collapse" data-target="#accountTogg">Login/Signup</a>
+
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-2">
+                    <div class="logo text-center">
+                        <a href="index.html"><img src="~/Content/images/logo.png" alt="Volta" /></a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-5">
+                    <div class="topLanguangeSearch clearfix">
+                        <form method="post">
+                            <input type="text" name="s" id="s" placeholder="Search" />
+                        </form>
+                        <div class="langMenu">
+                            <a href="#" data-toggle="collapse" data-target="#langTogg">Category<i class="fa fa-angle-down"></i></a>
+                            <ul class="sub-menu collapse" id="langTogg">
+                                <li><a href="#">BANGLA</a></li>
+                                <li><a href="#">CHINA</a></li>
+                                <li><a href="#">ENGlISH</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <header class="header" id="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <nav class="mainMenu poppins">
+                        <div class="logofixedHeader text-center">
+                            <a href="@Url.Action("Index","Home")"><img alt="Volta" src="~/Content/images/logo.png"></a>
+                        </div>
+                        <div class="mobileMenu">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                        <ul>
+                            <li class="has-menu-items">
+                                <a href="@Url.Action("Index","Home")">Home</a>
+
+                            </li>
+
+                            <li class="has-menu-items">
+                                <a href="@Url.Action("ListItem","Home")">Product</a>
+
+                            </li>
+                            <li class="has-menu-items">
+                                <a href="@Url.Action("Contact","Home")">Contact</a>
+                            </li>
+
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+    @RenderBody();
+
+    <footer class="footer" id="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-sm-4 col-xs-12 noPaddingRight">
+                    <aside class="widget">
+                        <h3 class="widgetTitle">Quick Links</h3>
+                        <ul class="pull-left clearfix">
+                            <li><a href="about.html">About us</a></li>
+                            <li><a href="#">Brands</a></li>
+                            <li><a href="#">Portfolio</a></li>
+                            <li><a href="#">Support</a></li>
+                            <li><a href="contact_us.html">Contact us</a></li>
+                            <li><a href="#">Order History</a></li>
+                            <li><a href="#">Site Map</a></li>
+                        </ul>
+                        <ul class="pull-right clearfix">
+                            <li><a href="#">My Account</a></li>
+                            <li><a href="#">Customer Service</a></li>
+                            <li><a href="#">My Vouchers</a></li>
+                            <li><a href="#">Search Terms</a></li>
+                            <li><a href="#">Terms & Conditions</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </aside>
+                </div>
+                <div class="clearfix hidden-lg hidden-md hidden-sm"></div>
+                <div class="col-lg-6 col-sm-5 col-xs-12">
+                    <aside class="widget">
+                        <div class="footerLogo text-center">
+                            <a href="index.html"><img src="~/Content/~/Content/~/Content/js/footerLogo.png" alt="" /></a>
+                        </div>
+                        <div class="footerSocial text-center">
+                            <a href="#"><i class="fa fa-facebook"></i></a><a href="#">
+                                <i class="fa fa-twitter"></i>
+                            </a><a href="#"><i class="fa fa-google-plus"></i></a><a href="#">
+                                <i class="fa fa-instagram"></i>
+                            </a><a href="#"><i class="fa fa-behance"></i></a>
+                        </div>
+
+                        <div class="copyRight text-center">Copyrights &COPY; 2016 VOLTA. All Rights Reserved</div>
+                    </aside>
+                </div>
+                <div class="col-lg-3 col-sm-3 col-xs-12">
+                    <aside class="widget">
+                        <h3 class="widgetTitle">Location</h3>
+                        <div class="mapImgs">
+                            <img src="~/Content/js/map.png" alt="" />
+                        </div>
+                        <div class="address">
+                            1040,Angelsgarden,North Texas,
+                            United States.
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Include All JS -->
+    <script type="text/javascript" src="~/Content/js/jquery.js"></script>
+    <script type="text/javascript" src="~/Content/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/Content/js/mixer.js"></script>
+    <script type="text/javascript" src="~/Content/js/wow.min.js"></script>
+    <script type="text/javascript" src="~/Content/js/jquery.appear.js"></script>
+    <script type="text/javascript" src="~/Content/js/owl.carousel.js"></script>
+    <script type="text/javascript" src="~/Content/js/jquery.themepunch.tools.min.js"></script>
+    <script type="text/javascript" src="~/Content/js/jquery.themepunch.revolution.min.js"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
+    <script type="text/javascript" src="~/Content/js/gmaps.js"></script>
+    <script type="text/javascript" src="~/Content/js/wow.min.js"></script>
+    <script type="text/javascript" src="~/Content/js/theme.js"></script>   
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
 </body>
+
+<!-- Mirrored from themewar.com/html/volta/shop_single.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Mar 2020 02:54:13 GMT -->
 </html>

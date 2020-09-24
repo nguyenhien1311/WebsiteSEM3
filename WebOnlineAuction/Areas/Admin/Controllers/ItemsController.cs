@@ -20,12 +20,19 @@ namespace WebOnlineAuction.Areas.Admin.Controllers
         }
 
         // GET: Admin/Items
-        public ActionResult Index()
+        public ActionResult Index(bool? sort)
         {
             Administrator check = Session["admin"] as Administrator;
             if (check != null)
             {
-                return View();
+                var sorted = sort ?? false;
+                var data = items.Gets(x => x.BidStatus == true).OrderBy(c => c.BidStartDate);
+                if (sorted)
+                {
+                    ViewBag.sort = sort;
+                    data = data.OrderByDescending(xx => xx.BidIncrement);
+                }
+                return View(data);
             }
             else
             {
@@ -33,12 +40,12 @@ namespace WebOnlineAuction.Areas.Admin.Controllers
             }
         }
 
-        // get Item list
+        // get Item list are active/aucting
         [HttpGet]
-        public ActionResult GetAll(bool? sortBy)
+        public ActionResult GetAll(bool? sort)
         {
-            var condition = sortBy ?? true;
-            var data = items.Gets().Where(c => c.BidStatus == condition).Select(c => new ItemViewModel
+            var sorted = sort ?? false;
+            var data = items.Gets(x=>x.BidStatus == true).Select(c => new ItemViewModel
             {
                 ItemId = c.ItemId,
                 ItemTitle = c.ItemTitle,
@@ -46,11 +53,15 @@ namespace WebOnlineAuction.Areas.Admin.Controllers
                 UserName = c.Users.UserName,
                 ItemImage = c.ItemImage,
                 BidStartDate = c.BidStartDate,
-                BidEndDate = c.BidEndDate,
+                BidEndDate = c.BidEndDate.ToLocalTime(),
                 BidIncrement = c.BidIncrement,
                 MinimumBid = c.MinimumBid,
                 BidStatus = c.BidStatus
             }).OrderBy(c => c.BidStartDate);
+            if (sorted)
+            {
+                data = data.OrderByDescending(xx => xx.BidIncrement);
+            }
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
@@ -59,19 +70,16 @@ namespace WebOnlineAuction.Areas.Admin.Controllers
         public ActionResult Details(string id)
         {
             var dtl = items.Get(id);
-            ItemViewModel tg = new ItemViewModel();
-            tg.ItemId = dtl.ItemId;
-            tg.ItemTitle = dtl.ItemTitle;
-            tg.CategorynName = dtl.Category.CategoryName;
-            tg.UserName = dtl.Users.UserName;
-            tg.ItemImage = dtl.ItemImage;
-            tg.BidStartDate = dtl.BidStartDate;
-            tg.BidEndDate = dtl.BidEndDate;
-            tg.BidIncrement = dtl.BidIncrement;
-            tg.MinimumBid = dtl.MinimumBid;
-            tg.BidStatus = dtl.BidStatus;
-            tg.ItemDescription = dtl.ItemDescription;
-            return View(tg);
+            return View(dtl);
+        }
+
+        [HttpGet]
+        public ActionResult GetInfo(string id)
+        {
+            var dtl = items.Get(id);
+            ItemViewModel v = new ItemViewModel();
+            v.ItemId = dtl.ItemId;
+            return Json(v, JsonRequestBehavior.AllowGet);
         }
 
         // rediect to view item  bid log 

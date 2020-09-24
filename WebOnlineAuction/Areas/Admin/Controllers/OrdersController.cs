@@ -20,12 +20,19 @@ namespace WebOnlineAuction.Areas.Admin.Controllers
             orders = new Repository<Orders>();
         }
         // GET: Admin/Orders
-        public ActionResult Index()
+        public ActionResult Index(string key)
         {
             Administrator check = Session["admin"] as Administrator;
             if (check != null)
             {
-                return View();
+                var data = orders.Gets();
+                if (!String.IsNullOrEmpty(key))
+                {
+                    ViewBag.ordkey = key;
+                    data = data.Where(x => x.UserId.ToLower().Contains(key.ToLower()));
+                }
+                var odata = data.OrderBy(o => o.Created);
+                return View(odata);
             }
             else
             {

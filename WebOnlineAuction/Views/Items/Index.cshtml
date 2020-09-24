@@ -1,0 +1,46 @@
+﻿@model IEnumerable<WebDAL.DataModels.Items>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutClient.cshtml";
+}
+<div class="container">
+    <div class="row">
+        <!-- Tab panes -->
+        <div class="tab-content" style="margin-top: 20px">
+            <div role="tabpanel" class="tab-pane fade in active" id="tab_01">
+                <div class="row">
+                    @foreach (var item in Model)
+                    {
+                        TimeSpan time = item.BidEndDate - DateTime.Now;
+                        <div class="col-lg-4 col-sm-6">
+                            <div class="singleProduct01 text-center">
+                                <div class="productThumb01">
+                                    <img src="@Url.Content(item.ItemImage)" alt="" width="200" height="400"/>
+
+                                </div>
+                                <div class="productDesc01">
+                                    <h5><a href="shop_single.html" class="poppins">@item.ItemTitle</a></h5>
+                                    <div class="time" time-set="y">@time</div>
+                                    <button class="Price" type="submit" style="border:none;border-radius: 20px;background: #fd8e2fff;color: #fff"><i class="fa fa-gavel" aria-hidden="true"></i></button>@item.BidIncrement
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mtop32">
+        <div class="col-lg-12">
+            <div class="sop_navigation text-center">
+                <a href="#" class="current">1</a>
+                <a href="#">2</a>
+                <a href="#">3</a>
+                <a href="#" class="next"><i class="flaticon-arrows-3"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

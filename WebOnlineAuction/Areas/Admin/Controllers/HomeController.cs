@@ -47,7 +47,7 @@ namespace WebOnlineAuction.Areas.Admin.Controllers
                 AdminId = a.AdminId,
                 LoginName = a.LoginName,
                 Password = a.Password,
-                Created = a.Created,
+                Created =  a.Created.ToString("dd/MM/yyyy"),
                 Status = a.Status
             });
             return Json(data, JsonRequestBehavior.AllowGet);

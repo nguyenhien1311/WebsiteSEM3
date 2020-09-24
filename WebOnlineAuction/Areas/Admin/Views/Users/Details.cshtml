@@ -5,14 +5,17 @@
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>Details User</h2>
+<h2>Details</h2>
 
 <div class="card">
     <div class="card-body">
+        <h4>Users</h4>
+        <hr />
         <dl class="dl-horizontal">
             <dt>
                 @Html.DisplayNameFor(model => model.FirstName)
             </dt>
+
             <dd>
                 @Html.DisplayFor(model => model.FirstName)
             </dd>
@@ -20,6 +23,7 @@
             <dt>
                 @Html.DisplayNameFor(model => model.LastName)
             </dt>
+
             <dd>
                 @Html.DisplayFor(model => model.LastName)
             </dd>
@@ -27,6 +31,7 @@
             <dt>
                 @Html.DisplayNameFor(model => model.Email)
             </dt>
+
             <dd>
                 @Html.DisplayFor(model => model.Email)
             </dd>
@@ -34,6 +39,7 @@
             <dt>
                 @Html.DisplayNameFor(model => model.Phone)
             </dt>
+
             <dd>
                 @Html.DisplayFor(model => model.Phone)
             </dd>
@@ -41,6 +47,7 @@
             <dt>
                 @Html.DisplayNameFor(model => model.UserName)
             </dt>
+
             <dd>
                 @Html.DisplayFor(model => model.UserName)
             </dd>
@@ -48,6 +55,7 @@
             <dt>
                 @Html.DisplayNameFor(model => model.Password)
             </dt>
+
             <dd>
                 @Html.DisplayFor(model => model.Password)
             </dd>
@@ -55,13 +63,16 @@
             <dt>
                 @Html.DisplayNameFor(model => model.Status)
             </dt>
+
             <dd>
-                @Html.DisplayFor(model => model.Status)
+                @{string str = Model.Status ? "Active" : "Inactive";}
+                @str
             </dd>
             <hr />
             <dt>
                 @Html.DisplayNameFor(model => model.Rate)
             </dt>
+
             <dd>
                 @Html.DisplayFor(model => model.Rate)
             </dd>
@@ -69,6 +80,7 @@
             <dt>
                 @Html.DisplayNameFor(model => model.Created)
             </dt>
+
             <dd>
                 @Html.DisplayFor(model => model.Created)
             </dd>
@@ -76,16 +88,17 @@
             <dt>
                 @Html.DisplayNameFor(model => model.Updated)
             </dt>
+
             <dd>
                 @Html.DisplayFor(model => model.Updated)
             </dd>
-            <hr />
+
         </dl>
     </div>
-</div>
-<p>
-    <div class="form-inline">
-        <button class="btn btn-md btn-rounded btn-info">@Html.ActionLink("Back to List", "Index", "Users",new { style="color:white" })</button> 
-        <button class="btn btn-md btn-rounded btn-warning">@Html.ActionLink("Ban user", "BanUser", "Users", new { id = Model.UserId }, new { style = "color:white" })</button> 
+    <div class="card-footer">
+        <p>
+            <button class="btn btn-sm btn-rounded btn-warning">@Html.ActionLink("Ban", "Ban", new { id = Model.UserId }, new { style = "color:white;" })</button>   |
+            <button class="btn btn-sm btn-rounded btn-info">@Html.ActionLink("Back to List", "Index", null, new { style = "color:white;" })</button>
+        </p>
     </div>
-</p>
+</div>

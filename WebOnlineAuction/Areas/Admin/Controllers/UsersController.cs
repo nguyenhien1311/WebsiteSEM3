@@ -47,10 +47,10 @@ namespace WebOnlineAuction.Areas.Admin.Controllers
         public ActionResult GetAll()
         {
             var ha = u.Gets();
-            var data = u.Gets(x=>x.Status==true).Select(u => new UserViewModel
+            var data = u.Gets(x => x.Status == true).Select(u => new UserViewModel
             {
                 UserId = u.UserId,
-                Name = u.FirstName + " "+ u.LastName,
+                Name = u.FirstName + " " + u.LastName,
                 Email = u.Email,
                 Phone = u.Phone,
                 UserName = u.UserName,
@@ -66,7 +66,7 @@ namespace WebOnlineAuction.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Create(Users user)
         {
-            int num = u.Gets().Count() +1;
+            int num = u.Gets().Count() + 1;
             string id = "USER";
             if (num < 10)
             {
@@ -96,7 +96,20 @@ namespace WebOnlineAuction.Areas.Admin.Controllers
         public ActionResult Update(string id)
         {
             var data = u.Get(id);
-            return Json(data,JsonRequestBehavior.AllowGet);
+            UserViewModel vdata = new UserViewModel();
+            vdata.UserId = data.UserId;
+            vdata.Name = data.FirstName + " " + data.LastName;
+            vdata.FirstName = data.FirstName ;
+            vdata.LastName = data.LastName;
+            vdata.Email = data.Email;
+            vdata.Phone = data.Phone;
+            vdata.UserName = data.UserName;
+            vdata.Password = data.Password;
+            vdata.Created = data.Created;
+            vdata.Updated = data.Created;
+            vdata.Rate = data.Rate;
+            vdata.Status = data.Status;
+            return Json(vdata, JsonRequestBehavior.AllowGet);
         }
 
         // edit user's info with new info

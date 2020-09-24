@@ -1,81 +1,66 @@
-﻿
+﻿@model IEnumerable<WebDAL.DataModels.Items>
+
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>Index</h2>
 
 <div class="card">
     <div class="card-body">
-        <div class="form-control-static left"><a href="#" onclick="Sort()"><span class="mdi mdi-format-line-spacing"> Sort By Price </span></a></div>
-        <table class="table table-striped">
-            <thead>
+        <div class="card-title">
+            <h2>Item Management</h2>
+            @{ bool? sort = ViewBag.sort ?? false;}
+            @using (Html.BeginForm("Index", "Items", new { sort = !sort }, FormMethod.Post, null))
+            {
+                <button type="submit" class="btn btn-sm btn-rounded btn-gradient-success">Sort By Price <span class="mdi mdi-sort-ascending"></span></button>
+            }
+        </div>
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Category.CategoryName)
+                </th>
+                <th>
+                    Seller
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ItemTitle)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ItemImage)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BidIncrement)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
                 <tr>
-                    <th>
-                        ID
-                    </th>
-                    <th>
-                        Category
-                    </th>
-                    <th>
-                        Title
-                    </th>
-                    <th>
-                        Image
-                    </th>
-                    <th>
-                        Start Auction
-                    </th>
-                    <th>
-                        End Auction
-                    </th>
-                    <th>
-                        Bid Increment
-                    </th>
-                    <th>
-                        Status
-                    </th>
-                    <th></th>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Category.CategoryName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Users.FirstName)
+                        @Html.DisplayFor(modelItem => item.Users.LastName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ItemTitle)
+                    </td>
+                    <td>
+                        @{ string str = item.ItemImage;}
+                        <img src="@Url.Content(str)" alt="Alternate Text" width="100" height="100" />
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BidIncrement)
+                    </td>
+                    <td>
+                        <button class="btn btn-sm btn-rounded btn-info">@Html.ActionLink("Details", "Details", new { id = item.ItemId },new {style="color:white;" })</button> 
+                    </td>
                 </tr>
-            </thead>
-            <tbody class="tbl_Items"></tbody>
+            }
         </table>
     </div>
 </div>
-
-@section scripts{
-    <script>
-        var sort = false;
-        function LoadItem (sorted) {
-            $.ajax({
-                type: 'GET',
-                url: 'Items/GetAll',
-                data: {
-                    condition: sorted
-                },
-                success: function (res) {
-                    var rows = '';
-                    $.each(res, function (idx, item) {
-                        rows += `<tr>
-                                                <td>${item.ItemId}</td>
-                                                <td>${item.CategorynName}</td>
-                                                <td>${item.ItemTitle}</td>
-                                                <td>${item.ItemImage}</td>
-                                                <td>${item.BidStartDate}</td>
-                                                <td>${item.BidEndDate}</td>
-                                                <td>${item.BidIncrement}</td>
-                                                <td>${item.BidStatus}</td>
-                                                <td></td
-                                            </tr>`
-                    });
-                    $(".tbl_Items").html(rows);
-                }
-            })
-        }
-        function Sort() {
-            sort = true;
-            LoadItem(sort);
-        }
-    </script>
-}

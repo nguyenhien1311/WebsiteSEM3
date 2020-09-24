@@ -1,0 +1,110 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_LayoutClient.cshtml";
+}
+<div class="login-wrap">
+    <div class="login-html">
+        <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Sign In</label>
+        <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Sign Up</label>
+        <div class="login-form">
+            <div class="sign-in-htm">
+                <div class="group">
+                    <label for="user" class="label">Username</label>
+                    <input id="user" name="user" type="text" class="input">
+                </div>
+                <div class="group">
+                    <label for="pass" class="label">Password</label>
+                    <input id="pass" name="pass" type="password" class="input" data-type="password">
+                </div>
+                <div class="group">
+                    <input id="check" type="checkbox" class="check" checked>
+                    <label for="check"><span class="icon"></span> Keep me Signed in</label>
+                </div>
+                <div class="group">
+                    <input type="submit" class="button" value="Sign In" onclick="Login()">
+                </div>
+                <div class="hr"></div>
+                <div class="foot-lnk">
+                    <a href="#forgot">Forgot Password?</a>
+                </div>
+            </div>
+            <div class="sign-up-htm">
+                <div class="group">
+                    <label for="user" class="label">First Name</label>
+                    <input id="firstName" name="firstName" type="text" class="input">
+                </div>
+                <div class="group">
+                    <label for="user" class="label">Last Name</label>
+                    <input id="lastName" name="lastName" type="text" class="input">
+                </div>
+                <div class="group">
+                    <label for="user" class="label">Email</label>
+                    <input id="email" name="email" type="text" class="input">
+                </div>
+                <div class="group">
+                    <label for="pass" class="label">User name</label>
+                    <input id="user2" name="user2" type="text" class="input">
+                </div>
+                <div class="group">
+                    <label for="pass" class="label">Password</label>
+                    <input id="pass2" name="pass2" type="password" class="input">
+                </div>
+                <div class="group">
+                    <input type="submit" class="button" onclick="Register()" value="Sign Up">
+                </div>
+                <div class="hr"></div>
+                <div class="foot-lnk">
+                    <label for="tab-1">Already Member?</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        function Login() {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("Login","Home")',
+                data: {
+                    loginName: $('#user').val(),
+                    password: $('#pass').val()
+                },
+                success: function (res) {
+                    if (res.status == true) {
+                        alert(res.message);
+                        window.location = "https://localhost:44382/Home/Index";
+                    } else {
+                        alert(res.message);
+                    }
+                }
+            });
+        }
+        function Register() {
+            var user = {
+                FirstName = $("#firstName").val(),
+                LastName = $("#lastName").val(),
+                Email = $("#email").val(),
+                UserName = $("#user2").val(),
+                Password = $("#pass2").val()
+            }
+            console.log(user);
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("Register","Home")',
+                data: user,
+                success: function (res) {
+                    if (res.status == true) {
+                        alert(res.message);
+                        window.location = "https://localhost:44382/Home/Login";
+                    } else {
+                        alert(res.message);
+                    }
+                }
+            });
+        }
+    </script>
+}
+
