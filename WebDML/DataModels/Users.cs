@@ -31,7 +31,6 @@ namespace WebDAL.DataModels
         [Display(Name = "Email")]
         public string Email { get; set; }
 
-        [Required(ErrorMessage = "Please enter phone number")]
         [Phone(ErrorMessage ="Phone number invalid!")]
         [Display(Name = "Phone")]
         public string Phone { get; set; }

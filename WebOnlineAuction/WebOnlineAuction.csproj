@@ -1371,10 +1371,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_LayoutClient.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\DetailItem.cshtml" />
-    <Content Include="Views\Home\ListItem.cshtml" />
     <Content Include="Views\Items\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>

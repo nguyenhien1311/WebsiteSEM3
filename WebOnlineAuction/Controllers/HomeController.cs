@@ -35,23 +35,14 @@ namespace WebOnlineAuction.Controllers
                 }
                 return Json(new { status = false, message = "Password invalid!" });
             }
-            return Json(new { status = false, message = "Account not exist!" });
+            return Json(new { status = false, message = "Account not exist!" , name = username });
         }
 
         [HttpPost]
         public ActionResult Register(Users user)
         {
-            int num = u.Gets().Count() + 1;
-            string id = "USER";
-            if (num < 10)
-            {
-                id = id + "0" + num;
-            }
-            else
-            {
-                id += num;
-            }
-            user.UserId = id;
+            user.UserId = AutoGenId();
+            user.Status = true;
             user.Created = DateTime.Now;
             if (u.Create(user))
                 return Json(new { CodeStatus = 200, message = "Create user complete!" });
@@ -68,6 +59,20 @@ namespace WebOnlineAuction.Controllers
 
         public ActionResult ListItem() {
             return View();
+        }
+
+        public string AutoGenId() {
+            int num = u.Gets().Count() + 1;
+            string id = "USER";
+            if (num < 10)
+            {
+                id = id + "0" + num;
+            }
+            else
+            {
+                id += num;
+            }
+            return id;
         }
     }
 }
