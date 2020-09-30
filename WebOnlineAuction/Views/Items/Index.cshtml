@@ -1,4 +1,6 @@
-﻿@model IEnumerable<WebDAL.DataModels.Items>
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<WebDAL.DataModels.Items>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutClient.cshtml";
@@ -11,57 +13,32 @@
                 <div class="row">
                     @foreach (var item in Model)
                     {
-                        TimeSpan time = item.BidEndDate - DateTime.Now;
                         <div class="col-lg-4 col-sm-6">
+                            <div class="card">
                             <div class="singleProduct01 text-center">
                                 <div class="productThumb01">
                                     <img src="@Url.Content(item.ItemImage)" alt="" width="50" height="200" />
-
                                 </div>
                                 <div class="productDesc01">
-                                    <h5><a href="shop_single.html" class="poppins">@item.ItemTitle</a></h5>
-                                    <div class="time" id="time" time-set="y"></div>
-                                    <button class="Price" type="submit" style="border:none;border-radius: 20px;background: #fd8e2fff;color: #fff"><i class="fa fa-gavel" aria-hidden="true"></i></button>@item.BidIncrement
+                                    <h5><a href="" class="poppins">@Html.ActionLink(@item.ItemTitle, "Details", new { id = item.ItemId }, null)</a></h5>
+                                    <h5>End at :</h5>
+                                    <div class="time" id="time" time-set="y">@item.BidEndDate</div>
+                                    <div class="card-footer">
+                                        <button class="Price" type="submit" style="border:none;border-radius: 20px;background: #fd8e2fff;color: #fff"><i class="fa fa-gavel" aria-hidden="true"></i></button>@item.BidIncrement
+                                    </div>
                                 </div>
                             </div>
+                                </div>
                         </div>
-                        <script>
-
-                            // Update the count down every 1 second
-                            var x = setInterval(function () {
-                                // Time calculations for days, hours, minutes and seconds
-                                var days = Math.floor((@item) / (1000 * 60 * 60 * 24));
-                                var hours = Math.floor(((@item) % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                                var minutes = Math.floor(((@item) % (1000 * 60 * 60)) / (1000 * 60));
-                                var seconds = Math.floor(((@item) % (1000 * 60)) / 1000);
-
-                                // Display the result in the element with id="demo"
-                                document.getElementById("time").innerHTML = days + "d " + hours + "h "
-                                    + minutes + "m " + seconds + "s ";
-
-                                // If the count down is finished, write some text
-                                if (distance < 0) {
-                                    clearInterval(x);
-                                    document.getElementById("time").innerHTML = "EXPIRED";
-                                }
-                            }, 1000);
-                        </script>
                     }
                 </div>
             </div>
         </div>
     </div>
     <div class="row mtop32">
-        <div class="col-lg-12">
-            <div class="sop_navigation text-center">
-                <a href="#" class="current">1</a>
-                <a href="#">2</a>
-                <a href="#">3</a>
-                <a href="#" class="next"><i class="flaticon-arrows-3"></i></a>
-            </div>
+        <div class="col-lg-12 text-center">
+                @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page, key = ViewBag.key }))
         </div>
     </div>
 </div>
-
-
 

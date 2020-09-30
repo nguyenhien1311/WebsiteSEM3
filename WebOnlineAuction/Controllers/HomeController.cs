@@ -23,19 +23,21 @@ namespace WebOnlineAuction.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(string username ,string password)
+        public ActionResult Login(string username, string password)
         {
-            var result = u.Gets().FirstOrDefault(a => a.UserName.Equals(username));
+            var result = u.Gets().SingleOrDefault(a => a.UserName.ToLower().Equals(username.ToLower()));
             if (result != null)
             {
                 if (result.Password.ToLower().Equals(password.ToLower()))
                 {
                     Session["user"] = result;
-                    return Json(new { status = true, message = "Login Successfull!" });
+                    return RedirectToAction("Index","Items");
                 }
-                return Json(new { status = false, message = "Password invalid!" });
+                ViewBag.pwderr = "Password invalid!";
+                return RedirectToAction("Login");
             }
-            return Json(new { status = false, message = "Account not exist!" , name = username });
+            ViewBag.usnerr = "Account not exist!";
+            return RedirectToAction("Login");
         }
 
         [HttpPost]
@@ -47,18 +49,6 @@ namespace WebOnlineAuction.Controllers
             if (u.Create(user))
                 return Json(new { CodeStatus = 200, message = "Create user complete!" });
             return Json(new { CodeStatus = 200, message = "Create user faild!" });
-        }
-
-        public ActionResult Contact() {
-            return View();
-        }
-
-        public ActionResult DetailItem() {
-            return View();
-        }
-
-        public ActionResult ListItem() {
-            return View();
         }
 
         public string AutoGenId() {
@@ -73,6 +63,11 @@ namespace WebOnlineAuction.Controllers
                 id += num;
             }
             return id;
+        }
+
+        public ActionResult Logout() {
+            Session.Remove("user");
+           return RedirectToAction("Index", "Items");
         }
     }
 }

@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewBag.Title = "ShowBuyer";
+    Layout = "~/Views/Shared/_LayoutClient.cshtml";
+}
+    <div class="container">
+        <div class="form-control-static">
+            <label class="label label-info">You can contact with buyer with email address or phone number below</label>
+        </div>
+        <table class="table table-bordered table-striped"   >
+           <thead>
+               <tr>
+                   <th>Item Title</th>
+                   <th>Buyer</th>
+                   <th>Price</th>
+                   <th>Email</th>
+                   <th>Phone</th>
+               </tr>
+           </thead>
+           <tbody>
+               @{ WebDAL.DataModels.BidLog log = ViewBag.highBid as WebDAL.DataModels.BidLog;}
+               @if (log != null)
+               {
+                   <tr>
+                       <td>@log.Items.ItemTitle</td>
+                       <td>@log.Users.FirstName @log.Users.LastName</td>
+                       <td>@log.BidPrice</td>
+                       <td>@log.Users.Email</td>
+                       <td>@log.Users.Phone</td>
+                   </tr>
+               }
+               else
+               {
+                   <tr class="text-center"><td colspan="5">No infomation yet</td></tr>
+               }
+           </tbody>
+        </table>
+    </div>
+

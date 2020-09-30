@@ -20,7 +20,7 @@
     <link rel="stylesheet" type="text/css" href="~/Content/css/responsive.css" />
     <!-- End Include All CSS -->
     <!-- Favicon Icon -->
-    <link rel="icon" type="image/png" href="~/Content/~/Content/~/Content/js/favicon.png">
+    <link rel="icon" type="image/png" href="~/Content/js/favicon.png">
     <style>
         body {
             margin: 0;
@@ -226,30 +226,36 @@
                 <div class="col-lg-4 col-sm-5">
                     <div class="topMenusHolder">
                         <ul class="topMenus clearfix poppins">
-                            <li><a href="#"><i class="frontIcon icon-Exit"></i>Register</a></li>
-                            <li>
-                                <a href="@Url.Action("Login","Home")" data-toggle="collapse" data-target="#accountTogg">Login/Signup</a>
-
-                            </li>
+                            @if (Session["user"] != null)
+                            {
+                                <li><a href="@Url.Action("Logout","Home")"><i class="frontIcon icon-Exit"></i>Logout</a></li>
+                            }
+                            else
+                            {
+                                <li>
+                                    <a href="@Url.Action("Login","Home")" data-toggle="collapse" data-target="#accountTogg">Login/Signup</a>
+                                </li>
+                            }
                         </ul>
                     </div>
                 </div>
                 <div class="col-lg-4 col-sm-2">
                     <div class="logo text-center">
-                        <a href="index.html"><img src="~/Content/images/logo.png" alt="Volta" /></a>
+                        <a href="@Url.Action("Index","Items")"><img src="~/Content/images/logo.png" alt="Volta" /></a>
                     </div>
                 </div>
                 <div class="col-lg-4 col-sm-5">
                     <div class="topLanguangeSearch clearfix">
-                        <form method="post">
-                            <input type="text" name="s" id="s" placeholder="Search" />
+                        <form method="post" action="@Url.Action("Index","Items")">
+                            <input type="text" name="Key" id="Key" placeholder="Search" />
                         </form>
                         <div class="langMenu">
                             <a href="#" data-toggle="collapse" data-target="#langTogg">Category<i class="fa fa-angle-down"></i></a>
-                            <ul class="sub-menu collapse" id="langTogg">
-                                <li><a href="#">BANGLA</a></li>
-                                <li><a href="#">CHINA</a></li>
-                                <li><a href="#">ENGlISH</a></li>
+                            <ul class="sub-menu collapse cbx_categories" id="langTogg">
+                                @foreach (var item in ViewBag.cats)
+                                {
+                                    <li> <a href="@Url.Action("Index","Items",new { catid = item.CategoryId })">@item.CategoryName </a> </li>
+                                }
                             </ul>
                         </div>
                     </div>
@@ -265,22 +271,16 @@
                         <div class="logofixedHeader text-center">
                             <a href="@Url.Action("Index","Items")"><img alt="Volta" src="~/Content/images/logo.png"></a>
                         </div>
-                        <div class="mobileMenu">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </div>
                         <ul>
-                            <li class="has-menu-items">
-                                <a href="@Url.Action("Index","Items")">Home</a>
-                            </li>
-                            <li class="has-menu-items">
-                                <a href="@Url.Action("ListItem","Items")">Product</a>
-
-                            </li>
-                            <li class="has-menu-items">
-                                <a href="@Url.Action("Contact","Home")">Contact</a>
-                            </li>
+                            @if (Session["user"] != null)
+                            {
+                                <li class="has-menu-items">
+                                    <a href="@Url.Action("GetItemById","Items")">My Items</a>
+                                </li>
+                                <li class="has-menu-items">
+                                    <a href="@Url.Action("SellAnItem","Items")">Sell an Item</a>
+                                </li>
+                            }
                         </ul>
                     </nav>
                 </div>
@@ -294,32 +294,14 @@
             <div class="row">
                 <div class="col-lg-3 col-sm-4 col-xs-12 noPaddingRight">
                     <aside class="widget">
-                        <h3 class="widgetTitle">Quick Links</h3>
-                        <ul class="pull-left clearfix">
-                            <li><a href="about.html">About us</a></li>
-                            <li><a href="#">Brands</a></li>
-                            <li><a href="#">Portfolio</a></li>
-                            <li><a href="#">Support</a></li>
-                            <li><a href="contact_us.html">Contact us</a></li>
-                            <li><a href="#">Order History</a></li>
-                            <li><a href="#">Site Map</a></li>
-                        </ul>
-                        <ul class="pull-right clearfix">
-                            <li><a href="#">My Account</a></li>
-                            <li><a href="#">Customer Service</a></li>
-                            <li><a href="#">My Vouchers</a></li>
-                            <li><a href="#">Search Terms</a></li>
-                            <li><a href="#">Terms & Conditions</a></li>
-                            <li><a href="#">Privacy Policy</a></li>
-                        </ul>
-                        <div class="clearfix"></div>
+                        <h3 class="widgetTitle">Have fun</h3>
                     </aside>
                 </div>
                 <div class="clearfix hidden-lg hidden-md hidden-sm"></div>
                 <div class="col-lg-6 col-sm-5 col-xs-12">
                     <aside class="widget">
                         <div class="footerLogo text-center">
-                            <a href="@Url.Action("Inndex","Items")"><img src="~/Content/images/footerLogo.png" alt="" /></a>
+                            <a href="@Url.Action("Index","Items")"><img src="~/Content/images/footerLogo.png" alt="" /></a>
                         </div>
                         <div class="footerSocial text-center">
                             <a href="#"><i class="fa fa-facebook"></i></a><a href="#">
@@ -336,7 +318,7 @@
                     <aside class="widget">
                         <h3 class="widgetTitle">Location</h3>
                         <div class="mapImgs">
-                            <img src="~/Content/images/map.png" alt="" width="200" height="200"/>
+                            <img src="~/Content/images/map.png" alt="" width="200" height="200" />
                         </div>
                         <div class="address">
                             VIET NAM NUMBER ONE
@@ -359,7 +341,7 @@
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
     <script type="text/javascript" src="~/Content/js/gmaps.js"></script>
     <script type="text/javascript" src="~/Content/js/wow.min.js"></script>
-    <script type="text/javascript" src="~/Content/js/theme.js"></script>   
+    <script type="text/javascript" src="~/Content/js/theme.js"></script>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)

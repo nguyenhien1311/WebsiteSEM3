@@ -1,8 +1,10 @@
-﻿using System;
+﻿using PagedList;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI;
 using WebBML.Repositories;
 using WebDAL.DataModels;
 using WebDML.ViewModels;
@@ -21,11 +23,16 @@ namespace WebOnlineAuction.Areas.Admin.Controllers
         }
 
         // GET: Admin/Category
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
             Administrator check = Session["admin"] as Administrator;
             if (check != null)
             {
+                int pageNum = page ?? 1;
+                int pageSize = 8;
+                var data = c.Gets();
+                var pdata = data.OrderBy(x => x.CategoryId).ToPagedList(pageNum, pageSize);
+                ViewBag.cat = pdata;
                 return View();
             }
             else

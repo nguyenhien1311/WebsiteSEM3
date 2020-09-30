@@ -68,8 +68,12 @@ namespace WebOnlineAuction.Areas.Admin.Controllers
             {
                 if (result.Password.ToLower().Equals(password.ToLower()))
                 {
-                    Session["admin"] = result;
-                    return Json(new { status = true, message = "Login Successfull!" });
+                    if (result.Status!=false)
+                    {
+                        Session["admin"] = result;
+                        return Json(new { status = true, message = "Login Successfull!" });
+                    }
+                    return Json(new { status = true, message = "Your account have been baned!" });
                 }
                 return Json(new { status = false, message = "Password invalid!" });
             }

@@ -57,10 +57,10 @@ namespace WebDAL.DataModels
         public float MinimumBid { get; set; }
 
         [Required(ErrorMessage = "Please choose category of the item")]
-        [Display(Name = "Category Id")]
+        [Display(Name = "Category")]
         public string CategoryId { get; set; }
 
-        [Display(Name = "Seller ID")]
+        [Display(Name = "Seller")]
         public string UserId { get; set; }
 
 

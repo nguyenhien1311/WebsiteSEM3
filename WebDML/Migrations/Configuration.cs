@@ -16,8 +16,8 @@
         {
             // create list data for all table and insert some seed data
             IList<Items> lst_Item = new List<Items>() {
-                new Items{ ItemId = "IT01" , ItemTitle="Nike Shoes",ItemDescription="a Shoes ",ItemImage="~/Areas/Admin/Assests/images/Items/1.jpg",BidStatus=true,BidStartDate=DateTime.Now,BidEndDate=DateTime.Now.AddDays(2),BidIncrement=50000,MinimumBid=2,CategoryId="SH", UserId="USER01" },
-                new Items{ ItemId = "IT02" , ItemTitle="Hunder X Shoes",ItemDescription="a Shoes ",ItemImage="~/Areas/Admin/Assests/images/Items/2.jpg",BidStatus=true,BidStartDate=DateTime.Now,BidEndDate=DateTime.Now.AddDays(2),BidIncrement=100000,MinimumBid=1,CategoryId="SH", UserId="USER02" },
+                new Items{ ItemId = "IT01" , ItemTitle="Nike Shoes",ItemDescription="a Shoes ",ItemImage="~/Areas/Admin/Assests/images/Items/1.jpg",BidStatus=false,BidStartDate=DateTime.Now,BidEndDate=DateTime.Now.AddDays(2),BidIncrement=50000,MinimumBid=2,CategoryId="SH", UserId="USER01" },
+                new Items{ ItemId = "IT02" , ItemTitle="Hunder X Shoes",ItemDescription="a Shoes ",ItemImage="~/Areas/Admin/Assests/images/Items/2.jpg",BidStatus=false,BidStartDate=DateTime.Now,BidEndDate=DateTime.Now.AddDays(2),BidIncrement=100000,MinimumBid=1,CategoryId="SH", UserId="USER02" },
                 new Items{ ItemId = "IT03" , ItemTitle="Adidas Shoes",ItemDescription="a Shoes ",ItemImage="~/Areas/Admin/Assests/images/Items/3.jpg",BidStatus=true,BidStartDate=DateTime.Now,BidEndDate=DateTime.Now.AddDays(2),BidIncrement=200000,MinimumBid=2,CategoryId="SH", UserId="USER03" },
                 new Items{ ItemId = "IT04" , ItemTitle="Soccer Shoes",ItemDescription="a Shoes ",ItemImage="~/Areas/Admin/Assests/images/Items/4.jpg",BidStatus=true,BidStartDate=DateTime.Now,BidEndDate=DateTime.Now.AddDays(2),BidIncrement=250000,MinimumBid=1,CategoryId="SH", UserId="USER02" },
                 new Items{ ItemId = "IT05" , ItemTitle="iPhone Xs max",ItemDescription="a phone ",ItemImage="~/Areas/Admin/Assests/images/Items/5.jpg",BidStatus=true,BidStartDate=DateTime.Now,BidEndDate=DateTime.Now.AddDays(2),BidIncrement=250000,MinimumBid=2,CategoryId="MP", UserId="USER03" },
@@ -37,8 +37,8 @@
                 new Items{ ItemId = "IT19" , ItemTitle="rolex Watch",ItemDescription="a watch ",ItemImage="~/Areas/Admin/Assests/images/Items/19.jpg",BidStatus=true,BidStartDate=DateTime.Now,BidEndDate=DateTime.Now.AddDays(2),BidIncrement=50000,MinimumBid=1,CategoryId="SW", UserId="USER02" },
                 new Items{ ItemId = "IT20" , ItemTitle="casio Watch",ItemDescription="a watch ",ItemImage="~/Areas/Admin/Assests/images/Items/20.jpg",BidStatus=true,BidStartDate=DateTime.Now,BidEndDate=DateTime.Now.AddDays(2),BidIncrement=100000,MinimumBid=2,CategoryId="SW", UserId="USER01" },
                 new Items{ ItemId = "IT21" , ItemTitle="wooden bracelet",ItemDescription="a Jewelry ",ItemImage="~/Areas/Admin/Assests/images/Items/21.jpg",BidStatus=true,BidStartDate=DateTime.Now,BidEndDate=DateTime.Now.AddDays(2),BidIncrement=50000,MinimumBid=2,CategoryId="JL", UserId="USER02" },
-                new Items{ ItemId = "IT22" , ItemTitle="fancy bracelet",ItemDescription="a Jewelry ",ItemImage="~/Areas/Admin/Assests/images/Items/22.jpg",BidStatus=true,BidStartDate=DateTime.Now,BidEndDate=DateTime.Now.AddDays(2),BidIncrement=200000,MinimumBid=3,CategoryId="JL", UserId="USER01" },
-                new Items{ ItemId = "IT23" , ItemTitle="western gold",ItemDescription="a Jewelry ",ItemImage="~/Areas/Admin/Assests/images/Items/23.jpg",BidStatus=true,BidStartDate=DateTime.Now,BidEndDate=DateTime.Now.AddDays(2),BidIncrement=50000,MinimumBid=3,CategoryId="JL", UserId="USER03" },
+                new Items{ ItemId = "IT22" , ItemTitle="fancy bracelet",ItemDescription="a Jewelry ",ItemImage="~/Areas/Admin/Assests/images/Items/22.jpg",BidStatus=false,BidStartDate=DateTime.Now,BidEndDate=DateTime.Now.AddDays(2),BidIncrement=200000,MinimumBid=3,CategoryId="JL", UserId="USER01" },
+                new Items{ ItemId = "IT23" , ItemTitle="western gold",ItemDescription="a Jewelry ",ItemImage="~/Areas/Admin/Assests/images/Items/23.jpg",BidStatus=false,BidStartDate=DateTime.Now,BidEndDate=DateTime.Now.AddDays(2),BidIncrement=50000,MinimumBid=3,CategoryId="JL", UserId="USER03" },
                 new Items{ ItemId = "IT24" , ItemTitle="wooden ring",ItemDescription="a Jewelry ",ItemImage="~/Areas/Admin/Assests/images/Items/24.jpg",BidStatus=true,BidStartDate=DateTime.Now,BidEndDate=DateTime.Now.AddDays(2),BidIncrement=150000,MinimumBid=3,CategoryId="JL", UserId="USER01" }
 
         };
@@ -57,9 +57,19 @@
                 new Users { UserId="USER02",FirstName = "Vũ Minh",LastName="Đạt",Email="Vuminhdat@gmail.com",Phone="0120000007",Rate=5,UserName="datdat",Password="dat2000",Status=true,Created= DateTime.Now},
                 new Users { UserId="USER03",FirstName = "Trần Thế",LastName="Duyệt",Email="antiVNG@gmail.com",Phone="0120000006",Rate=5,UserName="duyetdp",Password="duyet2000",Status=true,Created= DateTime.Now}
             };
-            IList<Orders> lst_Order = new List<Orders>();
+            IList<Orders> lst_Order = new List<Orders>() {
+            new Orders{OrderId="OD01",UserId="USER02" ,ItemId= "IT01",Price=100000,Status=true,Created=DateTime.Now},
+            new Orders{OrderId="OD02",UserId="USER03" ,ItemId= "IT02",Price=110000,Status=true,Created=DateTime.Now},
+            new Orders{OrderId="OD03",UserId="USER01" ,ItemId= "IT23",Price=100000,Status=true,Created=DateTime.Now},
+            new Orders{OrderId="OD04",UserId="USER02" ,ItemId= "IT22",Price=210000,Status=true,Created=DateTime.Now}
+            };
             IList<Rating> lst_Rating = new List<Rating>();
-            IList<BidLog> lst_Log = new List<BidLog>();
+            IList<BidLog> lst_Log = new List<BidLog>() {
+            new BidLog{ ItemId="IT01",UserId="USER02",BidPrice=100000, BidDate =DateTime.Now },
+            new BidLog{ ItemId="IT02",UserId="USER03",BidPrice=110000, BidDate =DateTime.Now },
+            new BidLog{ ItemId="IT23",UserId="USER01",BidPrice=100000, BidDate =DateTime.Now },
+            new BidLog{ ItemId="IT22",UserId="USER02",BidPrice=210000, BidDate =DateTime.Now },
+            };
             IList<Administrator> lst_Admin = new List<Administrator>() {
                 new Administrator { AdminId="AD01",LoginName = "admin",Password="admin",Status=true,Created= DateTime.Now},
                 new Administrator { AdminId="AD02",LoginName = "dat09",Password="admin",Status=true,Created= DateTime.Now},

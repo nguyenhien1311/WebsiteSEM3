@@ -8,27 +8,33 @@
         <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Sign In</label>
         <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Sign Up</label>
         <div class="login-form">
-            <div class="sign-in-htm">
-                <div class="group">
-                    <label for="userName" class="label">Username</label>
-                    <input id="userName" name="userName" type="text" class="input">
+            @if (@ViewBag.usnerr != null) {
+            <label class="label-warning control-label">
+                @ViewBag.usnerr
+            </label>
+            }
+            @if (@ViewBag.pwderr != null)
+            {
+                <label class="label-warning control-label">
+                    @ViewBag.pwderr
+                </label>
+            }
+            @using (Html.BeginForm("Login", "Home", FormMethod.Post, null))
+            {
+                <div class="sign-in-htm">
+                    <div class="group">
+                        <label for="userName" class="label">Username</label>
+                        <input id="userName" name="userName" type="text" class="input">
+                    </div>
+                    <div class="group">
+                        <label for="password" class="label">Password</label>
+                        <input id="password" name="password" type="password" class="input" data-type="password">
+                    </div>
+                    <div class="group">
+                        <input type="submit" class="button btn-login" value="Sign In">
+                    </div>
                 </div>
-                <div class="group">
-                    <label for="password" class="label">Password</label>
-                    <input id="password" name="password" type="password" class="input" data-type="password">
-                </div>
-                <div class="group">
-                    <input id="check" type="checkbox" class="check" checked>
-                    <label for="check"><span class="icon"></span> Keep me Signed in</label>
-                </div>
-                <div class="group">
-                    <input type="submit" class="button btn-login" value="Sign In">
-                </div>
-                <div class="hr"></div>
-                <div class="foot-lnk">
-                    <a href="#forgot">Forgot Password?</a>
-                </div>
-            </div>
+            }
             <div class="sign-up-htm">
                 <div class="group">
                     <label for="user" class="label">First Name</label>
@@ -53,10 +59,6 @@
                 <div class="group">
                     <input type="submit" class="button btn-signup" value="Sign Up">
                 </div>
-                <div class="hr"></div>
-                <div class="foot-lnk">
-                    <label for="tab-1">Already Member?</a>
-                </div>
             </div>
         </div>
     </div>
@@ -64,27 +66,6 @@
 
 @section scripts{
     <script>
-
-        $(document).on("click", ".btn-login", function () {
-            var user = {
-                loginName: $('#userName').val(),
-                password: $('#password').val()
-            }
-            console.log(user);
-            $.ajax({
-                type: 'POST',
-                url: '@Url.Action("Login","Home")',
-                data:user,
-                success: function (res) {
-                    if (res.status == true) {
-                        alert(res.message);
-                        window.location = "https://localhost:44382/Items/Index";
-                    } else {
-                        alert(res.message);
-                    }
-                }
-            });
-        })
 
         $(document).on("click",".btn-signup",function() {
             var user = {

@@ -1,4 +1,5 @@
-﻿
+﻿@using PagedList;
+@using PagedList.Mvc;
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
@@ -54,7 +55,7 @@
                     <div class="form-group row">
                         <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Description</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="editor" name="editor"  placeholder="About a television ect..">
+                            <input type="text" class="form-control" id="editor" name="editor" placeholder="About a television ect..">
                         </div>
                     </div>
                 </div>
@@ -96,6 +97,8 @@
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary btn-confirm">Confirm Merge</button>
             </div>
+            <div class="text-center">@Html.PagedListPager((IPagedList)ViewBag.cat, page => Url.Action("Index", new { page = page, key = ViewBag.key }))</div>
+            
         </div>
     </div>
 </div>
@@ -110,15 +113,15 @@
                     var rows = '';
                     $.each(res, function (idx, item) {
                         rows += `<tr>
-                                 <td>${item.CategoryId}</td>
-                                 <td>${item.CategoryName}</td>
-                                 <td>${item.Description}</td>
-                                 <td>
-                                 <button data-id="${item.CategoryId}" class="btn btn-warning btn-edit" data-toggle="modal" data-target="#popupModal">Edit</button>
-                                <button data-id="${item.CategoryId}" class="btn btn-warning btn-merge" data-toggle="modal" data-target="#exampleModal">Merge</button>
-                              <button data-id="${item.CategoryId}" class="btn btn-danger btn-del" >Delete</button>
-                             </td>
-                             </tr>`
+                                     <td>${item.CategoryId}</td>
+                                     <td>${item.CategoryName}</td>
+                                     <td>${item.Description}</td>
+                                     <td>
+                                     <button data-id="${item.CategoryId}" class="btn btn-warning btn-edit" data-toggle="modal" data-target="#popupModal">Edit</button>
+                                    <button data-id="${item.CategoryId}" class="btn btn-warning btn-merge" data-toggle="modal" data-target="#exampleModal">Merge</button>
+                                  <button data-id="${item.CategoryId}" class="btn btn-danger btn-del" >Delete</button>
+                                 </td>
+                                 </tr>`;
                     });
                     $(".tbl_Categories").html(rows);
                 }
@@ -189,9 +192,9 @@
             })
             $(document).on("click", ".btn-merge", function () {
                 var id = $(this).data("id");
-                        $("#fromId").val(id);
-                        $("#exampleModal").modal('show');
-                })
+                $("#fromId").val(id);
+                $("#exampleModal").modal('show');
+            })
             $(document).on("click", ".btn-confirm", function () {
                 console.log($("#fromId").val());
                 console.log($("#toId").val());
