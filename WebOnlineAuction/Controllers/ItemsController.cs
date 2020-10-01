@@ -18,6 +18,7 @@ namespace WebOnlineAuction.Controllers
         IRepository<Items> items;
         IRepository<Category> cat;
         IRepository<BidLog> log;
+
         public ItemsController()
         {
             items = new Repository<Items>();
@@ -26,7 +27,8 @@ namespace WebOnlineAuction.Controllers
             var c = cat.Gets();
             ViewBag.cats = c;
         }
-        public ActionResult Index(string key,string catid,int? page)
+
+        public ActionResult Index(string key, string catid, int? page)
         {
             int pageNum = page ?? 1;
             int pageSize = 12;
@@ -41,14 +43,14 @@ namespace WebOnlineAuction.Controllers
             var activedata = data.Where(x => x.BidStatus == true);
             if (!String.IsNullOrEmpty(catid))
             {
-                activedata = activedata.Where(x => x.CategoryId== catid);
+                activedata = activedata.Where(x => x.CategoryId == catid);
             }
             if (!String.IsNullOrEmpty(key))
             {
                 ViewBag.key = key;
                 activedata = activedata.Where(x => x.ItemTitle.ToLower().Contains(key.ToLower()));
             }
-            var pdata  = activedata.OrderBy(x => x.BidStartDate).ToPagedList(pageNum, pageSize);
+            var pdata = activedata.OrderBy(x => x.BidStartDate).ToPagedList(pageNum, pageSize);
             return View(pdata);
         }
 
@@ -56,7 +58,7 @@ namespace WebOnlineAuction.Controllers
         public ActionResult Details(string id)
         {
             var data = items.Get(id);
-            var lg = log.Gets(x => x.ItemId == id).OrderBy(x => x.BidDate);
+            var lg = log.Gets(x => x.ItemId == id).OrderByDescending(x => x.BidDate);
             ViewBag.history = lg;
             return View(data);
         }
@@ -65,7 +67,7 @@ namespace WebOnlineAuction.Controllers
         public ActionResult Bid(string itemid, float price) {
             var item = items.Get(itemid);
             Users u = Session["user"] as Users;
-            var bids = log.Gets().FirstOrDefault(x=>x.ItemId == itemid && x.UserId == u.UserId);
+            var bids = log.Gets().FirstOrDefault(x => x.ItemId == itemid && x.UserId == u.UserId);
             if (price > item.BidIncrement)
             {
                 if (price - item.BidIncrement > item.MinimumBid)
@@ -107,18 +109,18 @@ namespace WebOnlineAuction.Controllers
             return Json(new { status = false, message = "Price have bigger than current price!" });
         }
 
-        public ActionResult SellAnItem(){
-            ViewBag.Category = new SelectList(cat.Gets(), "CategoryId","CategoryName");
+        public ActionResult SellAnItem() {
+            ViewBag.Category = new SelectList(cat.Gets(), "CategoryId", "CategoryName");
             return View();
         }
         [HttpPost]
-        public ActionResult SellAnItem(Items item){
+        public ActionResult SellAnItem(Items item) {
             Users u = Session["user"] as Users;
             item.ItemId = AutoGenId();
             item.UserId = u.UserId;
             item.BidStartDate = DateTime.Now;
             item.BidStatus = true;
-            ViewBag.Category = new SelectList(cat.Gets(), "CategoryId", "CategoryName",item.CategoryId);
+            ViewBag.Category = new SelectList(cat.Gets(), "CategoryId", "CategoryName", item.CategoryId);
             if (items.Create(item))
                 return RedirectToAction("GetItemById");
             return View();
@@ -129,7 +131,7 @@ namespace WebOnlineAuction.Controllers
         {
             Users u = Session["user"] as Users;
             var data = items.Gets(x => x.UserId == u.UserId).OrderBy(x => x.BidStartDate);
-            
+
             return View(data);
         }
 
@@ -153,6 +155,23 @@ namespace WebOnlineAuction.Controllers
             data.BidStatus = false;
             items.Update(data);
             return RedirectToAction("GetItemById");
+        }
+
+        [HttpGet]
+        public ActionResult Edit(string id)
+        {
+            var data = items.Get(id);
+            return View(data);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(Items item)
+        {
+            if (items.Update(item))
+            {
+                return RedirectToAction("GetItemById");
+            }
+            return View();
         }
 
         [HttpGet]

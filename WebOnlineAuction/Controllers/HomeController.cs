@@ -12,9 +12,13 @@ namespace WebOnlineAuction.Controllers
     public class HomeController : Controller
     {
         IRepository<Users> u;
+        IRepository<Category> cat;
         public HomeController()
         {
             u = new Repository<Users>();
+            cat = new Repository<Category>();
+            var c = cat.Gets();
+            ViewBag.cats = c;
         }
 
         public ActionResult Login() {
