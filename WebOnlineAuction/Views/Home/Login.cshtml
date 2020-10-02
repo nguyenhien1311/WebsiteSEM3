@@ -3,20 +3,11 @@
     ViewBag.Title = "Login";
     Layout = "~/Views/Shared/_LayoutClient.cshtml";
 }
-@if (@ViewBag.usnerr != null)
-{
-    <label class="label-warning control-label">
-        @ViewBag.usnerr
-    </label>
-}
-@if (@ViewBag.pwderr != null)
-{
-    <label class="label-warning control-label">
-        @ViewBag.pwderr
-    </label>
-}
+
 <div class="login-wrap">
     <div class="login-html">
+
+
         <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Sign In</label>
         <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Sign Up</label>
         <div class="login-form">
@@ -26,10 +17,22 @@
                     <div class="group">
                         <label for="userName" class="label">Username</label>
                         <input id="userName" name="userName" type="text" class="input">
+                        @if (ViewBag.usnerr != null)
+                        {
+                            <label class="label label-warning">
+                                @ViewBag.usnerr
+                            </label>
+                        }
                     </div>
                     <div class="group">
                         <label for="password" class="label">Password</label>
                         <input id="password" name="password" type="password" class="input" data-type="password">
+                        @if (ViewBag.pwderr != null)
+                        {
+                            <label class="label label-warning">
+                                @ViewBag.pwderr
+                            </label>
+                        }
                     </div>
                     <div class="group">
                         <input type="submit" class="button btn-login" value="Sign In">
@@ -84,7 +87,7 @@
                 success: function (res) {
                     if (res.status == true) {
                         alert(res.message);
-                        window.location = location.reload();
+                        window.location.reload();
                     } else {
                         alert(res.message);
                     }

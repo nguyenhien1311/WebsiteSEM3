@@ -18,12 +18,14 @@ namespace WebOnlineAuction.Controllers
         IRepository<Items> items;
         IRepository<Category> cat;
         IRepository<BidLog> log;
+        IRepository<Orders> ods;
 
         public ItemsController()
         {
             items = new Repository<Items>();
             cat = new Repository<Category>();
             log = new Repository<BidLog>();
+            ods = new Repository<Orders>();
             var c = cat.Gets();
             ViewBag.cats = c;
         }
@@ -58,7 +60,7 @@ namespace WebOnlineAuction.Controllers
         public ActionResult Details(string id)
         {
             var data = items.Get(id);
-            var lg = log.Gets(x => x.ItemId == id).OrderByDescending(x => x.BidDate);
+            var lg = log.Gets(x => x.ItemId == id).OrderBy(x => x.BidPrice);
             ViewBag.history = lg;
             return View(data);
         }
@@ -150,9 +152,19 @@ namespace WebOnlineAuction.Controllers
         }
 
         [HttpGet]
-        public ActionResult EndAuction(string id) {
+        public ActionResult EndAuction(string id)
+        {
+           var high = log.Gets(x => x.ItemId == id).OrderBy(x=>x.BidPrice).First();
             var data = items.Get(id);
             data.BidStatus = false;
+            Orders o = new Orders();
+            o.ItemId = data.ItemId;
+            o.UserId = high.UserId;
+            o.OrderId = AutoGenIdOd();
+            o.Status = true;
+            o.Price = high.BidPrice;
+            o.Created = DateTime.Now;
+            ods.Create(o);
             items.Update(data);
             return RedirectToAction("GetItemById");
         }
@@ -167,7 +179,11 @@ namespace WebOnlineAuction.Controllers
         [HttpPost]
         public ActionResult Edit(Items item)
         {
-            if (items.Update(item))
+            var data = items.Get(item.ItemId);
+            data.ItemImage = item.ItemImage;
+            data.ItemDescription = item.ItemDescription;
+            data.MinimumBid = item.MinimumBid;
+            if (items.Update(data))
             {
                 return RedirectToAction("GetItemById");
             }
@@ -187,10 +203,24 @@ namespace WebOnlineAuction.Controllers
             return View();
         }
 
-        // auto generation id typr string for items
+        // auto generation id type string for items
         public string AutoGenId() {
             int num = items.Gets().Count() + 1;
             string id = "IT";
+            if (num < 10)
+            {
+                id = id + "0" + num;
+            }
+            else
+            {
+                id += num;
+            }
+            return id; 
+        }
+        // auto generation id type string for Orders
+        public string AutoGenIdOd() {
+            int num = items.Gets().Count() + 1;
+            string id = "OD";
             if (num < 10)
             {
                 id = id + "0" + num;

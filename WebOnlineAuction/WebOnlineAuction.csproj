@@ -1418,7 +1418,6 @@
     <Content Include="Views\Items\Index.cshtml" />
     <Content Include="Views\Items\Details.cshtml" />
     <Content Include="Views\Items\SellAnItem.cshtml" />
-    <Content Include="Views\Items\ViewLog.cshtml" />
     <Content Include="Views\Items\GetItemById.cshtml" />
     <Content Include="Views\Items\ShowBuyer.cshtml" />
     <Content Include="Views\Items\Edit.cshtml" />

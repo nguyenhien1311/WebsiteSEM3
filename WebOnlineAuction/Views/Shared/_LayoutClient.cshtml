@@ -4,7 +4,7 @@
 
 <!-- Mirrored from themewar.com/html/volta/shop_single.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Mar 2020 02:53:57 GMT -->
 <head>
-    <title>Volta : Minimal Shopping HTML5 Template</title>
+    <title>Volta</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -254,7 +254,8 @@
                             <ul class="sub-menu collapse" id="langTogg">
                                 @foreach (var item in ViewBag.cats)
                                 {
-                                    <li> <a href="@Url.Action("Index","Items",new { catid = item.CategoryId })">@item.CategoryName </a> </li>
+                                    <li class="text-left"> <a href="@Url.Action("Index","Items",new { catid = item.CategoryId })">@item.CategoryName </a> </li>
+                                    <br />
                                 }
                             </ul>
                         </div>
