@@ -78,6 +78,7 @@ namespace WebOnlineAuction.Areas.Admin.Controllers
             }
             user.UserId = id;
             user.Created = DateTime.Now;
+            user.Rate = 0;
             if (u.Create(user))
                 return Json(new { CodeStatus = 200, message = "Create user complete!" });
             return Json(new { CodeStatus = 200, message = "Create user faild!" });

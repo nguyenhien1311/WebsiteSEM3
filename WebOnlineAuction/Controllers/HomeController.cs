@@ -4,8 +4,10 @@ using System.Linq;
 using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Services.Description;
 using WebBML.Repositories;
 using WebDAL.DataModels;
+using WebDML.ViewModels;
 
 namespace WebOnlineAuction.Controllers
 {
@@ -13,10 +15,12 @@ namespace WebOnlineAuction.Controllers
     {
         IRepository<Users> u;
         IRepository<Category> cat;
+        IRepository<Rating> rate;
         public HomeController()
         {
             u = new Repository<Users>();
             cat = new Repository<Category>();
+            rate = new Repository<Rating>();
             var c = cat.Gets();
             ViewBag.cats = c;
         }
@@ -50,11 +54,65 @@ namespace WebOnlineAuction.Controllers
             user.UserId = AutoGenId();
             user.Status = true;
             user.Created = DateTime.Now;
+            user.Rate = 0;
             if (u.Create(user))
                 return Json(new { CodeStatus = 200, message = "Create user complete!" });
             return Json(new { CodeStatus = 200, message = "Create user faild!" });
         }
 
+        [HttpGet]
+        public ActionResult Edit(string id) {
+            var data = u.Get(id);
+            return View(data);
+        }
+        [HttpPost]
+        public ActionResult Edit(Users user)
+        {
+            var target = u.Get(user.UserId);
+            target.Email = user.Email;
+            target.Password = user.Password;
+            target.Phone = user.Phone;
+            target.Updated = DateTime.Now;
+            u.Update(target);
+            return RedirectToAction("Edit","Home",new { id = user.UserId });
+        }
+
+        // Show up all rating user have
+        [HttpGet]
+        public ActionResult GetRate(string id)
+        {
+            var data = rate.Gets(x => x.ToId.Equals(id));
+            ViewBag.rates = data;
+            ViewBag.toid = id;
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult LeaveRate( string toId,int rnum , string comment) {
+            Users u = Session["user"] as Users;
+            var data = rate.Gets(x => x.FromId == u.UserId).Where(x => x.ToId == toId).FirstOrDefault();
+            if (data != null)
+            {
+                data.Rate = rnum;
+                data.Comment = comment;
+                rate.Update(data);
+                return RedirectToAction("GetRate", "Home", new { id = toId });
+            }
+            else
+            {
+                Rating r = new Rating();
+                r.FromId = u.UserId;
+                r.ToId = toId;
+                r.Rate = rnum;
+                r.Comment = comment;
+                r.Created = DateTime.Now;
+                if (rate.Create(r))
+                    return RedirectToAction("GetRate", "Home", new { id = toId });
+                return View("~/Views/Shared/Error.cshtml");
+            }
+        }
+
+        //auto generation id type string for new user 
         public string AutoGenId() {
             int num = u.Gets().Count() + 1;
             string id = "USER";
@@ -71,7 +129,9 @@ namespace WebOnlineAuction.Controllers
 
         public ActionResult Logout() {
             Session.Remove("user");
-           return RedirectToAction("Index", "Items");
+           return RedirectToAction("Login");
         }
+
+
     }
 }

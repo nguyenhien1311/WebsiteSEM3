@@ -1,0 +1,80 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutClient.cshtml";
+}
+<section class="comonSection">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 checkoutForms">
+                <h4 class="comonHeading">Rates:</h4>
+
+                <div id="order_review" class="woocommerce-checkout-review-order">
+                    <div class="orderbg">
+                        <ol class="comment_list">
+                            @foreach (var item in ViewBag.rates)
+                            {
+                                <li>
+                                    <div class="singleComments">
+                                        <div class="comDetails">
+                                            <div class="comHeader">
+                                                <div class="col-sm-6 noPadding text-left">
+                                                    <h5>@item.FromUser.FirstName @item.FromUser.LastName</h5>
+                                                    <p class="comDate">@item.Created</p>
+                                                </div>
+                                                <div class="col-sm-6 noPadding text-right">
+                                                    <div class="cus_star-rating">
+                                                        <input type="number" min="-5" max="5" value="@item.Rate" style="border-radius: 15px; border: none; color: #fff;background: #ff9800">
+                                                    </div>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                            <div class="com_details">
+                                                <p>@item.Comment</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            }
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <h3 class="comonHeading">Leave a rate :</h3>
+                @if (Session["user"] != null)
+                {
+                    using (Html.BeginForm("LeaveRate", "Home", FormMethod.Post, null))
+                    {
+                        <input type="text" name="toId" id="toId" value="@ViewBag.toid" hidden/>
+                        <div class="clearfix">
+                            <div class="slidecontainer">
+                                <input type="range" min="-5" max="5" value="0" id="rnum" name="rnum">
+                                <p>Value: <span id="demo"></span></p>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12 noPadding">
+                            <textarea style="width: 100%; height: 100px;" id="comment" name="comment" placeholder="OTHER NOTES..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-danger">Rates</button>
+                    }
+                }
+                else
+                {
+                    @Html.ActionLink("Login to leave a rate!","Login","Home")
+                }
+
+            </div>
+
+</section>
+@section scripts{
+    <script>
+        var slider = document.getElementById("rnum");
+        var output = document.getElementById("demo");
+        output.innerHTML = slider.value;
+
+        slider.oninput = function () {
+            output.innerHTML = this.value;
+        }
+    </script>
+}

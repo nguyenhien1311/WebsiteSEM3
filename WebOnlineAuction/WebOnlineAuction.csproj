@@ -1421,6 +1421,8 @@
     <Content Include="Views\Items\GetItemById.cshtml" />
     <Content Include="Views\Items\ShowBuyer.cshtml" />
     <Content Include="Views\Items\Edit.cshtml" />
+    <Content Include="Views\Home\Edit.cshtml" />
+    <Content Include="Views\Home\GetRate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
