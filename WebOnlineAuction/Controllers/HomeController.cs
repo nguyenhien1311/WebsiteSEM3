@@ -16,11 +16,13 @@ namespace WebOnlineAuction.Controllers
         IRepository<Users> u;
         IRepository<Category> cat;
         IRepository<Rating> rate;
+        IRepository<Users> us;
         public HomeController()
         {
             u = new Repository<Users>();
             cat = new Repository<Category>();
             rate = new Repository<Rating>();
+            us = new Repository<Users>();
             var c = cat.Gets();
             ViewBag.cats = c;
         }
@@ -96,6 +98,23 @@ namespace WebOnlineAuction.Controllers
                 data.Rate = rnum;
                 data.Comment = comment;
                 rate.Update(data);
+                var pdata = rate.Gets(x => x.ToId == toId);
+                var user = us.Get(toId);
+                int i = 0;
+                if (pdata.Count() > 0)
+                {
+                    i += pdata.Sum(x => x.Rate);
+                }
+                if (i > 5)
+                {
+                    i = 5;
+                }
+                else if (i < -5)
+                {
+                    i = -5;
+                }
+                user.Rate = i / pdata.Count();
+                us.Update(user);
                 return RedirectToAction("GetRate", "Home", new { id = toId });
             }
             else
@@ -107,7 +126,26 @@ namespace WebOnlineAuction.Controllers
                 r.Comment = comment;
                 r.Created = DateTime.Now;
                 if (rate.Create(r))
+                {
+                    var pdata = rate.Gets(x => x.ToId == toId);
+                    var user = us.Get(toId);
+                    int i = 0;
+                    if (pdata.Count() > 0)
+                    {
+                        i += pdata.Sum(x => x.Rate);
+                    }
+                    if (i > 5)
+                    {
+                        i = 5;
+                    }
+                    else if(i < -5)
+                    {
+                        i = -5;
+                    }
+                    user.Rate = i/pdata.Count();
+                    us.Update(user);
                     return RedirectToAction("GetRate", "Home", new { id = toId });
+                }
                 return View("~/Views/Shared/Error.cshtml");
             }
         }

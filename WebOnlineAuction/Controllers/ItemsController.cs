@@ -52,7 +52,7 @@ namespace WebOnlineAuction.Controllers
                 ViewBag.key = key;
                 activedata = activedata.Where(x => x.ItemTitle.ToLower().Contains(key.ToLower()));
             }
-            var pdata = activedata.OrderBy(x => x.BidStartDate).ToPagedList(pageNum, pageSize);
+            var pdata = activedata.OrderByDescending(x => x.BidStartDate).ToPagedList(pageNum, pageSize);
             return View(pdata);
         }
 
@@ -60,7 +60,7 @@ namespace WebOnlineAuction.Controllers
         public ActionResult Details(string id)
         {
             var data = items.Get(id);
-            var lg = log.Gets(x => x.ItemId == id).OrderBy(x => x.BidPrice);
+            var lg = log.Gets(x => x.ItemId == id).OrderByDescending(x => x.BidPrice);
             ViewBag.history = lg;
             return View(data);
         }

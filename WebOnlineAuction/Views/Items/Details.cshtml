@@ -44,6 +44,7 @@
                     </p>
                 </div>
                 <p>Seller : <a href="@Url.Action("GetRate","Home",new { id = Model.UserId},null)">@Model.Users.FirstName @Model.Users.LastName</a></p>
+                <p>Rate : @Model.Users.Rate</p>
                 <br />
 
                 @if (Model.BidEndDate > DateTime.Now)
