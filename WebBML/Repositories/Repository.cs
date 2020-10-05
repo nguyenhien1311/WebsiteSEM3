@@ -20,6 +20,20 @@ namespace WebBML.Repositories
             tbl = db.Set<T>();
         }
 
+        //Add an entity to database function
+        public bool Create(T entity)
+        {
+            try
+            {
+                tbl.Add(entity);
+                Save();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
         public T Get(object id)
         {
             return tbl.Find(id);
@@ -35,19 +49,6 @@ namespace WebBML.Repositories
             return tbl.Where(predicate).AsEnumerable();
         }
 
-        public bool Create(T entity)
-        {
-            try
-            {
-                tbl.Add(entity);
-                Save();
-                return true;
-            }
-            catch (Exception ex)
-            {
-                return false;
-            }
-        }
 
         public bool Update(T entity)
         {

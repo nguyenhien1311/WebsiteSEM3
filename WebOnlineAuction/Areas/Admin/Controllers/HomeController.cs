@@ -59,31 +59,13 @@ namespace WebOnlineAuction.Areas.Admin.Controllers
             return View();
         }
 
-        // process login in the admin page and save info to session
-        [HttpPost]
-        public ActionResult Login(string loginName, string password)
-        {
-            var result = ad.Gets().FirstOrDefault(a => a.LoginName.Equals(loginName));
-            if (result != null)
-            {
-                if (result.Password.ToLower().Equals(password.ToLower()))
-                {
-                    if (result.Status!=false)
-                    {
-                        Session["admin"] = result;
-                        return Json(new { status = true, message = "Login Successfull!" });
-                    }
-                    return Json(new { status = true, message = "Your account have been baned!" });
-                }
-                return Json(new { status = false, message = "Password invalid!" });
-            }
-            return Json(new { status = false, message = "Account not exist!" });
-        }
+
 
         //create a admin 
         [HttpPost]
         public ActionResult Create(Administrator admin)
         {
+            //auto generation id type string for new admin
             int num = ad.Gets().Count() + 1;
             string id = "AD";
             if (num < 10)
@@ -97,6 +79,7 @@ namespace WebOnlineAuction.Areas.Admin.Controllers
             admin.AdminId = id;
             admin.Created = DateTime.Now;
             admin.Status = true;
+            //if create admin complete return a message complete, if not return a message faild 
             if (ad.Create(admin))
                 return Json(new { CodeStatus = 200, message = "Create account complete!" });
             return Json(new { CodeStatus = 200, message = "Create account faild!" });
@@ -122,6 +105,7 @@ namespace WebOnlineAuction.Areas.Admin.Controllers
         [HttpDelete]
         public ActionResult Delete(string id)
         {
+            //delete an admin with id provided
             ad.Remove(id);
             return Json(new
             {
@@ -130,6 +114,30 @@ namespace WebOnlineAuction.Areas.Admin.Controllers
             });
         }
 
+
+        // process login in the admin page and save info to session
+        [HttpPost]
+        public ActionResult Login(string loginName, string password)
+        {
+            //check if loginname is correct
+            var result = ad.Gets().FirstOrDefault(a => a.LoginName.Equals(loginName));
+            if (result != null)
+            {
+                //check if password is correct
+                if (result.Password.ToLower().Equals(password.ToLower()))
+                {
+                    //check if admin status is true
+                    if (result.Status != false)
+                    {
+                        Session["admin"] = result;
+                        return Json(new { status = true, message = "Login Successfull!" });
+                    }
+                    return Json(new { status = true, message = "Your account have been baned!" });
+                }
+                return Json(new { status = false, message = "Password invalid!" });
+            }
+            return Json(new { status = false, message = "Account not exist!" });
+        }
         // clear session and rediect to login gage
         public ActionResult Logout()
         {

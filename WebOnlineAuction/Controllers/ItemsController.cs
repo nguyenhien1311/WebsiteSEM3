@@ -35,6 +35,7 @@ namespace WebOnlineAuction.Controllers
             int pageNum = page ?? 1;
             int pageSize = 12;
             var data = items.Gets();
+            // id item end date auction <= today then change item bid status by false
             foreach (var item in data)
             {
                 if (item.BidEndDate == DateTime.Now)
@@ -43,10 +44,12 @@ namespace WebOnlineAuction.Controllers
                 }
             }
             var activedata = data.Where(x => x.BidStatus == true);
+            //check if catid is not null or empty, begin searching for all items have categoryid equal catid value
             if (!String.IsNullOrEmpty(catid))
             {
                 activedata = activedata.Where(x => x.CategoryId == catid);
             }
+            //check if key is not null or empty, begin searching for all items have item title contain key value
             if (!String.IsNullOrEmpty(key))
             {
                 ViewBag.key = key;
