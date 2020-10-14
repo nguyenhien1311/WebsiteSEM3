@@ -251,11 +251,10 @@
                         </form>
                         <div class="langMenu">
                             <a href="#" data-toggle="collapse" data-target="#langTogg">Category<i class="fa fa-angle-down"></i></a>
-                            <ul class="sub-menu collapse" id="langTogg">
+                            <ul class="sub-menu collapse" id="langTogg" style="width:150px;">
                                 @foreach (var item in ViewBag.cats)
                                 {
                                     <li class="text-left"> <a href="@Url.Action("Index","Items",new { catid = item.CategoryId })">@item.CategoryName </a> </li>
-                                    <br />
                                 }
                             </ul>
                         </div>
